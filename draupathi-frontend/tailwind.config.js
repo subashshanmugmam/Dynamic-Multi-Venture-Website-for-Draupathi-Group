@@ -59,6 +59,9 @@ export default {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'spin-slow': 'spin 3s linear infinite',
         'gradient': 'gradient 8s ease infinite',
+        'gradient-x': 'gradient-x 3s ease infinite',
+        'shimmer': 'shimmer 2s infinite',
+        'shimmer-slow': 'shimmer-slow 3s infinite',
         'typewriter': 'typewriter 3s steps(40) 1s forwards',
         'blink': 'blink 1s step-end infinite',
       },
@@ -122,6 +125,22 @@ export default {
         blink: {
           '0%, 50%': { 'border-color': 'transparent' },
           '51%, 100%': { 'border-color': 'currentColor' },
+        },
+        'gradient-x': {
+          '0%, 100%': {
+            'background-position': '0% 50%'
+          },
+          '50%': {
+            'background-position': '100% 50%'
+          },
+        },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        'shimmer-slow': {
+          '0%': { 'background-position': '-200% center' },
+          '100%': { 'background-position': '200% center' },
         },
       },
       backdropBlur: {

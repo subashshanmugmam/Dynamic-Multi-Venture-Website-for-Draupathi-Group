@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-// Temporarily disabled axios import for development
-// import axios from 'axios';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -15,19 +14,25 @@ export const useAuth = () => {
 // Development-only AuthProvider - bypasses backend calls
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false); // Set to false to avoid loading states
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(false);
 
-  // Mock API base URL for development
+  // API base URL configuration
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
-  // Skip authentication check in development mode
+  // Configure axios defaults and check auth on mount
   useEffect(() => {
-    console.log('🔧 Development Mode: Skipping authentication check');
-    setLoading(false);
+    // Configure axios with base URL and credentials
+    axios.defaults.baseURL = API_BASE_URL;
+    axios.defaults.withCredentials = true;
+    
+    // Check authentication status on mount
+    // Note: 401 errors in console are expected when no user is logged in
+    checkAuth();
   }, []);
 
-  const checkAuth = async () => {
+  const checkAuth = async (silent = true) => {
     // Prevent multiple simultaneous auth checks
     if (isCheckingAuth) {
       return;
@@ -36,14 +41,36 @@ export const AuthProvider = ({ children }) => {
     try {
       setIsCheckingAuth(true);
       setLoading(true);
+      
       const response = await axios.get('/auth/me');
+      
       if (response.data.success) {
         setUser(response.data.data.user);
       }
     } catch (error) {
+      // For silent auth checks (initial load), don't log anything - they're expected
+      if (silent && error.response?.status === 401) {
+        setUser(null);
+        return;
+      }
+      
       // Handle rate limit errors more gracefully
       if (error.response?.status === 429) {
         console.warn('Rate limit reached, retrying in 60 seconds...');
+        setUser(null);
+        return;
+      }
+      
+      // Handle CORS errors
+      if (error.message?.includes('CORS') || error.code === 'ERR_NETWORK') {
+        console.warn('Network or CORS error during auth check:', error.message);
+        setUser(null);
+        return;
+      }
+      
+      // Handle other 401 errors (user not authenticated)
+      if (error.response?.status === 401) {
+        console.warn('Authentication required');
         setUser(null);
         return;
       }

@@ -66,7 +66,7 @@ const Home = () => {
       link: "/ventures/irrigations"
     },
     {
-      id: 4,
+      id: 3,
       title: "Premium Food Products",
       subtitle: "Quality Nutrition from Farm to Table",
       description: "Delivering fresh, healthy, and sustainably sourced food products to communities worldwide.",
@@ -156,7 +156,7 @@ const Home = () => {
         {/* Enhanced Background Images */}
         {banners.map((banner, index) => (
           <motion.div
-            key={`banner-${banner.id}`}
+            key={banner.id}
             className="absolute inset-0"
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ 
@@ -224,6 +224,13 @@ const Home = () => {
               >
                 {banners[currentBanner].description}
               </motion.p>
+              
+              <motion.p 
+                className="body-text text-white/80 max-w-2xl mx-auto leading-relaxed"
+                variants={heroItemVariants}
+              >
+                {banners[currentBanner].description}
+              </motion.p>
 
               <motion.div 
                 className="flex flex-col sm:flex-row gap-8 justify-center items-center pt-8"
@@ -264,7 +271,7 @@ const Home = () => {
                 >
                   {banners[currentBanner].stats.map((stat, index) => (
                     <motion.div
-                      key={`hero-stat-${index}`}
+                      key={index}
                       className="text-center group"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.3 }}
@@ -285,7 +292,7 @@ const Home = () => {
           <div className="flex items-center space-x-4 bg-black/20 backdrop-blur-xl rounded-full px-6 py-3 border border-white/20">
             {banners.map((_, index) => (
               <button
-                key={`nav-dot-${index}`}
+                key={index}
                 onClick={() => setCurrentBanner(index)}
                 className={`relative w-4 h-4 rounded-full transition-all duration-500 group ${
                   currentBanner === index 
@@ -305,12 +312,55 @@ const Home = () => {
             ))}
           </div>
         </div>
+
+        {/* Floating Animation Elements */}
+        <motion.div
+          className="absolute top-20 left-10 w-20 h-20 bg-blue-500 bg-opacity-20 rounded-full"
+          animate={{
+            y: [-10, 10, -10],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-32 right-16 w-16 h-16 bg-purple-500 bg-opacity-20 rounded-full"
+          animate={{
+            y: [10, -10, 10],
+            opacity: [0.4, 0.7, 0.4]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
       </section>
 
       {/* Enhanced Business Ventures Section */}
       <section className="relative py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        </div>
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="inline-flex items-center mb-6 px-6 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-700 rounded-full text-blue-700 dark:text-blue-300 text-sm font-semibold uppercase tracking-wider"
+            >
+              <span className="mr-2">🏢</span>
+              Our Business Portfolio
+            </motion.div>
+            
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
               Diversified Excellence Across
               <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600">
@@ -318,14 +368,14 @@ const Home = () => {
               </span>
             </h2>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              Pioneering innovation in technology, agriculture, and food sectors to create sustainable value.
+              Pioneering innovation in technology, agriculture, and food sectors to create sustainable value and drive positive impact across communities.
             </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {VENTURES.map((venture, index) => (
               <AnimatedSection
-                key={`venture-${venture.id}`}
+                key={`venture-${venture.id}-${index}`}
                 animation="fadeInUp"
                 delay={index * 0.2}
               >
@@ -334,6 +384,7 @@ const Home = () => {
                   whileHover={{ y: -12, scale: 1.02 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                 >
+                  {/* Gradient Background Overlay */}
                   <div 
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{ 
@@ -341,12 +392,14 @@ const Home = () => {
                     }}
                   />
                   
+                  {/* Top Accent Bar */}
                   <div 
                     className="absolute top-0 left-0 right-0 h-1 opacity-70 group-hover:opacity-100 group-hover:h-2 transition-all duration-300"
                     style={{ backgroundColor: venture.color }}
                   />
                   
                   <div className="relative p-10 text-center">
+                    {/* Icon Container */}
                     <motion.div 
                       className="relative w-20 h-20 mx-auto mb-8"
                       whileHover={{ rotate: 5, scale: 1.1 }}
@@ -358,6 +411,7 @@ const Home = () => {
                       >
                         <VentureIcon icon={venture.icon} className="w-10 h-10" />
                       </div>
+                      {/* Glow Effect */}
                       <div 
                         className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-lg"
                         style={{ backgroundColor: venture.color }}
@@ -372,14 +426,344 @@ const Home = () => {
                       {venture.description}
                     </p>
 
+                    {/* CTA Button */}
                     <Link
-                      to={venture.path}
-                      className="inline-flex items-center justify-center px-8 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-2xl hover:bg-gray-800 dark:hover:bg-gray-100 transform group-hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl"
+                      to={`/ventures/${venture.slug}`}
+                      className="group/btn inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-800 dark:text-gray-200 font-semibold rounded-2xl hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-600 dark:hover:to-gray-500 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                      style={{
+                        '--hover-color': venture.color
+                      }}
                     >
-                      <span className="mr-2">Explore</span>
-                      <ArrowRightIcon />
+                      <span className="group-hover/btn:scale-105 transition-transform duration-200">Explore More</span>
+                      <motion.span 
+                        className="group-hover/btn:translate-x-1 transition-transform duration-200"
+                        whileHover={{ scale: 1.2 }}
+                      >
+                        <ArrowRightIcon />
+                      </motion.span>
                     </Link>
                   </div>
+                  
+                  {/* Bottom Decorative Line */}
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-0.5 bg-gray-200 dark:bg-gray-600 group-hover:w-32 group-hover:bg-gradient-to-r group-hover:from-transparent group-hover:via-current group-hover:to-transparent transition-all duration-500" style={{ color: venture.color }} />
+                </motion.div>
+              </AnimatedSection>
+            ))}
+          </div>
+          
+          {/* Call to Action */}
+          <motion.div 
+            className="mt-20 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+          >
+            <Link
+              to="/ventures"
+              className="group inline-flex items-center gap-4 px-10 py-5 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white font-bold text-lg rounded-2xl hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/30"
+            >
+              <span className="group-hover:scale-105 transition-transform duration-200">View All Ventures</span>
+              <motion.span 
+                className="group-hover:translate-x-2 transition-transform duration-200"
+                whileHover={{ scale: 1.2 }}
+              >
+                →
+              </motion.span>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Enhanced Statistics Section */}
+      <section className="relative py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                             radial-gradient(circle at 75% 75%, rgba(147, 51, 234, 0.3) 0%, transparent 50%)`
+          }} />
+        </div>
+        
+        {/* Animated Background Elements */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000" />
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="inline-flex items-center mb-6 px-6 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/20 rounded-full text-white text-sm font-semibold uppercase tracking-wider"
+            >
+              <span className="mr-2">📊</span>
+              Our Impact in Numbers
+            </motion.div>
+            
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-purple-200">
+              Driving Excellence Across Industries
+            </h2>
+            <p className="text-xl sm:text-2xl text-blue-100/90 max-w-4xl mx-auto leading-relaxed">
+              Measurable results that reflect our commitment to innovation, quality, and sustainable growth across all our ventures.
+            </p>
+          </AnimatedSection>
+
+          <div ref={counterRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {statistics.map((stat, index) => (
+              <AnimatedSection
+                key={`stats-${index}`}
+                animation="scaleIn"
+                delay={index * 0.2}
+                className="text-center group"
+              >
+                <motion.div 
+                  className="relative p-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 shadow-2xl hover:shadow-purple-500/25 transition-all duration-500 hover:-translate-y-2"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Decorative top border */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full" />
+                  
+                  <div className="space-y-4">
+                    <AnimatedCounter
+                      end={stat.value}
+                      suffix={stat.suffix}
+                      startAnimation={counterInView}
+                      className="block text-5xl sm:text-6xl lg:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-br from-blue-300 via-white to-purple-300 group-hover:from-purple-300 group-hover:to-blue-300 transition-all duration-500"
+                    />
+                    <div className="w-12 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full group-hover:w-16 transition-all duration-500" />
+                    <p className="text-lg sm:text-xl text-blue-100/90 font-semibold group-hover:text-white transition-colors duration-300 leading-tight">
+                      {stat.label}
+                    </p>
+                  </div>
+                  
+                  {/* Hover effect overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                </motion.div>
+              </AnimatedSection>
+            ))}
+          </div>
+          
+          {/* Additional Achievement Badges */}
+          <motion.div 
+            className="mt-16 flex flex-wrap justify-center gap-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+          >
+            {[
+              { icon: "🏆", text: "Industry Leader" },
+              { icon: "⭐", text: "5-Star Rated" },
+              { icon: "🌱", text: "Eco-Friendly" },
+              { icon: "🚀", text: "Innovation Driven" },
+              { icon: "🎯", text: "Customer Focused" },
+              { icon: "🔒", text: "Trusted & Secure" }
+            ].map((badge, index) => (
+              <motion.div
+                key={`badge-${index}`}
+                className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300 cursor-pointer"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <span className="text-lg">{badge.icon}</span>
+                <span>{badge.text}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="section-py bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <AnimatedSection animation="fadeInLeft">
+              <div className="space-y-6">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+                  Why Choose Draupathi Group?
+                </h2>
+                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                  We combine innovation, expertise, and commitment to deliver exceptional results across all our business ventures.
+                </p>
+
+                <div className="space-y-4">
+                  {features.map((feature, index) => (
+                    <AnimatedSection
+                      key={index}
+                      animation="fadeInLeft"
+                      delay={index * 0.1}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                          <CheckIcon />
+                        </div>
+                        <span className="text-lg text-gray-700 dark:text-gray-300 font-medium">
+                          {feature}
+                        </span>
+                      </div>
+                    </AnimatedSection>
+                  ))}
+                </div>
+
+                <AnimatedSection animation="fadeInLeft" delay={0.8}>
+                  <Link
+                    to="/about"
+                    className="inline-flex items-center space-x-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
+                  >
+                    <span>Learn More About Us</span>
+                    <ArrowRightIcon />
+                  </Link>
+                </AnimatedSection>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection animation="fadeInRight">
+              <div className="relative">
+                <motion.div
+                  className="relative z-10"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+                    alt="Team collaboration"
+                    className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+                  />
+                </motion.div>
+                
+                {/* Floating elements */}
+                <motion.div
+                  className="absolute -top-8 -left-8 w-24 h-24 bg-blue-500 bg-opacity-20 rounded-full"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 180, 360]
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                
+                <motion.div
+                  className="absolute -bottom-8 -right-8 w-32 h-32 bg-purple-500 bg-opacity-20 rounded-full"
+                  animate={{
+                    scale: [1.2, 1, 1.2],
+                    rotate: [360, 180, 0]
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Testimonials Section */}
+      <section className="relative py-24 bg-gradient-to-br from-white via-blue-50/50 to-purple-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-300 to-transparent opacity-30" />
+          <div className="absolute top-20 right-20 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-200/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="inline-flex items-center mb-6 px-6 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-700 rounded-full text-blue-700 dark:text-blue-300 text-sm font-semibold uppercase tracking-wider"
+            >
+              <span className="mr-2">💬</span>
+              Client Testimonials
+            </motion.div>
+
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
+              Trusted by Industry
+              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600">
+                Leaders Worldwide
+              </span>
+            </h2>
+            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              Discover how our innovative solutions have transformed businesses across multiple industries, creating lasting partnerships and exceptional results.
+            </p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {testimonials.map((testimonial, index) => (
+              <AnimatedSection
+                key={`testimonial-${testimonial.id}-${index}`}
+                animation="fadeInUp"
+                delay={index * 0.2}
+              >
+                <motion.div
+                  className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden"
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                  {/* Quote Icon */}
+                  <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+                    <svg className="w-16 h-16 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                  </div>
+
+                  {/* Top Border Accent */}
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+                  {/* Stars with Animation */}
+                  <div className="flex space-x-1 mb-6">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <motion.div
+                        key={`testimonial-${index}-star-${i}`}
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: 0.5 + (i * 0.1), duration: 0.5, type: "spring" }}
+                        whileHover={{ scale: 1.2, rotate: 360 }}
+                        className="text-yellow-400 hover:text-yellow-500 cursor-pointer"
+                      >
+                        <StarIcon />
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Testimonial Text */}
+                  <blockquote className="text-gray-700 dark:text-gray-300 mb-8 text-lg leading-relaxed font-medium italic relative z-10">
+                    "{testimonial.text}"
+                  </blockquote>
+
+                  {/* Author Section */}
+                  <div className="flex items-center space-x-4 relative z-10">
+                    <motion.div
+                      className="relative"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <img
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        className="w-16 h-16 rounded-2xl object-cover shadow-lg ring-2 ring-gray-200 dark:ring-gray-600 group-hover:ring-blue-300 dark:group-hover:ring-blue-500 transition-all duration-300"
+                      />
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </motion.div>
+                    <div className="flex-1">
+                      <p className="font-bold text-gray-900 dark:text-white text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                        {testimonial.name}
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-tight">
+                        {testimonial.position}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Background Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-blue-50/0 to-purple-50/50 dark:from-blue-900/0 dark:via-blue-900/0 dark:to-purple-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </motion.div>
               </AnimatedSection>
             ))}
@@ -387,142 +771,37 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={counterRef} className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {statistics.map((stat, index) => (
-              <AnimatedSection
-                key={`stat-${index}`}
-                animation="fadeInUp"
-                delay={index * 0.1}
-                className="text-center"
-              >
-                <div className="text-4xl lg:text-6xl font-bold mb-2">
-                  {counterInView && <AnimatedCounter end={stat.value} suffix={stat.suffix} />}
-                </div>
-                <div className="text-lg lg:text-xl text-blue-100">{stat.label}</div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Why Choose Draupathi Group?
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              We deliver excellence through innovation, quality, and commitment to sustainable solutions.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <AnimatedSection
-                key={`feature-${index}`}
-                animation="fadeInUp"
-                delay={index * 0.1}
-              >
-                <div className="flex items-center p-6 bg-gray-50 dark:bg-gray-800 rounded-xl hover:shadow-lg transition-shadow duration-300">
-                  <CheckIcon />
-                  <span className="ml-4 text-lg font-medium text-gray-900 dark:text-white">{feature}</span>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Client Testimonials
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Hear from our satisfied clients about their experience with our services.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <AnimatedSection
-                key={`testimonial-${testimonial.id}`}
-                animation="fadeInUp"
-                delay={index * 0.1}
-              >
-                <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="flex space-x-1 mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <motion.div
-                        key={`star-${testimonial.id}-${i}`}
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ delay: 0.5 + (i * 0.1), duration: 0.5, type: "spring" }}
-                        whileHover={{ scale: 1.2, rotate: 360 }}
-                        className="text-yellow-400"
-                      >
-                        <StarIcon />
-                      </motion.div>
-                    ))}
-                  </div>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 italic leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
-                  
-                  <div className="flex items-center">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full mr-4"
-                    />
-                    <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        {testimonial.position}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="section-py bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection animation="fadeInUp">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               Ready to Transform Your Business?
             </h2>
-            <p className="text-xl mb-10 max-w-3xl mx-auto">
-              Join hundreds of satisfied clients who have experienced the Draupathi Group difference. 
-              Let's build something amazing together.
+            <p className="text-lg sm:text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Join hundreds of satisfied clients who have experienced the Draupathi Group difference. Let's build something amazing together.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
               <Link
                 to="/contact"
-                className="px-8 py-4 bg-white text-blue-600 hover:bg-gray-100 rounded-lg font-semibold transition-colors"
+                className="px-8 py-4 bg-white text-blue-600 hover:bg-gray-100 rounded-lg font-semibold transition-colors shadow-lg"
               >
                 Get Started Today
               </Link>
+              
               <Link
                 to="/about"
                 className="px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-blue-600 rounded-lg font-semibold transition-colors"
               >
                 Learn More
               </Link>
-            </div>
+            </motion.div>
           </AnimatedSection>
         </div>
       </section>

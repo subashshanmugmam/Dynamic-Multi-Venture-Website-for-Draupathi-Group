@@ -12,6 +12,7 @@ import ITSolutions from './pages/ventures/ITSolutions';
 import Irrigations from './pages/ventures/Irrigations';
 import DFoods from './pages/ventures/DFoods';
 import ThemeDemo from './components/theme/ThemeDemo';
+import ThemeTest from './pages/ThemeTest';
 import './App.css';
 
 // Placeholder components for routes
@@ -72,6 +73,7 @@ function App() {
                 <Route path="ventures/d-foods" element={<DFoods />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="theme-demo" element={<ThemeDemo />} />
+                <Route path="theme-test" element={<ThemeTest />} />
                 <Route path="ventures/:slug" element={<VentureDetail />} />
                 <Route path="login" element={<Login />} />
                 <Route path="admin" element={<Admin />} />
