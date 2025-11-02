@@ -6,6 +6,7 @@ const adminUserController = require('../controllers/adminUserController');
 const adminDashboardController = require('../controllers/adminDashboardController');
 const adminContentController = require('../controllers/adminContentController');
 const { authenticateAdmin, authorizeAdmin, requirePermission } = require('../middleware/adminAuth.middleware');
+const { validationMiddleware } = require('../middleware/validation.middleware');
 const { 
   createUserValidation, 
   updateUserValidation, 
@@ -15,7 +16,7 @@ const {
 } = require('../middleware/adminValidation.middleware');
 
 // Authentication routes
-router.post('/auth/login', loginValidation, adminAuthController.login);
+router.post('/auth/login', loginValidation, validationMiddleware, adminAuthController.login);
 router.post('/auth/refresh', adminAuthController.refresh);
 router.post('/auth/logout', authenticateAdmin, adminAuthController.logout);
 router.get('/auth/me', authenticateAdmin, adminAuthController.me);

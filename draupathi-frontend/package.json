@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "echo \"Running frontend tests...\" && npm run lint && npm run build && echo \"Frontend tests passed\"",
+    "test:unit": "echo \"Add your unit tests here (e.g., with Vitest)\"",
+    "test:e2e": "echo \"Add your e2e tests here (e.g., with Cypress or Playwright)\""
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",

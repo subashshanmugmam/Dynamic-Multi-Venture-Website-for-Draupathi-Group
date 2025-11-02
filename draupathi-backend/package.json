@@ -7,8 +7,13 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "setup": "node scripts/setup.js",
+    "setup-admin": "node scripts/setupAdmin.js",
+    "test-admin": "node scripts/testAdminLogin.js",
+    "debug-admin": "node scripts/debugAdmin.js",
     "seed-admin": "node scripts/createDefaultAdmin.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Running backend tests...\" && node -c src/server.js && echo \"Backend syntax check passed\"",
+    "test:unit": "echo \"Add your unit tests here\"",
+    "test:integration": "echo \"Add your integration tests here\""
   },
   "keywords": [],
   "author": "",

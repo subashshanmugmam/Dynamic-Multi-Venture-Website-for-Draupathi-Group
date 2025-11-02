@@ -1,0 +1,84 @@
+name: Basic CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Frontend Job
+  frontend:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: './draupathi-frontend/package-lock.json'
+    
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: ./draupathi-frontend/node_modules
+        key: ${{ runner.os }}-frontend-${{ hashFiles('**/draupathi-frontend/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-frontend-
+    
+    - name: Install dependencies
+      working-directory: ./draupathi-frontend
+      run: npm install
+    
+    - name: Run tests
+      working-directory: ./draupathi-frontend
+      run: |
+        if npm run | grep -q "test"; then
+          npm test
+        else
+          echo "No test script found, running build instead"
+          npm run build
+        fi
+
+  # Backend Job  
+  backend:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: './draupathi-backend/package-lock.json'
+    
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: ./draupathi-backend/node_modules
+        key: ${{ runner.os }}-backend-${{ hashFiles('**/draupathi-backend/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-backend-
+    
+    - name: Install dependencies
+      working-directory: ./draupathi-backend
+      run: npm install
+    
+    - name: Run tests
+      working-directory: ./draupathi-backend
+      run: |
+        if npm run | grep -q "test"; then
+          npm test
+        else
+          echo "No test script found, running syntax check"
+          node -c src/server.js
+        fi

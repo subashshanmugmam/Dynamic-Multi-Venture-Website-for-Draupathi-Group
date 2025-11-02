@@ -245,11 +245,14 @@ const PublicLogin = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             {isLogin ? 'Welcome Back' : 'Join Draupathi'}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 mb-1">
             {isLogin 
               ? 'Sign in to your account to continue'
               : 'Create your account to get started'
             }
+          </p>
+          <p className="text-sm text-blue-600 font-medium">
+            Public User Portal
           </p>
         </motion.div>
 
@@ -517,6 +520,66 @@ const PublicLogin = () => {
               >
                 {isLogin ? 'Sign up' : 'Sign in'}
               </button>
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Admin Login Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-8"
+        >
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-gradient-to-br from-blue-50 via-white to-purple-50 text-gray-500">
+                Administrative Access
+              </span>
+            </div>
+          </div>
+          
+          <div className="mt-6">
+            <Link
+              to="/admin/login"
+              className="w-full flex justify-center items-center gap-3 px-4 py-3 border-2 border-gray-200 rounded-lg text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 font-medium group"
+            >
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+                <svg 
+                  className="w-4 h-4 text-white" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" 
+                  />
+                </svg>
+              </div>
+              <span>Admin Panel Login</span>
+              <svg 
+                className="w-4 h-4 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all duration-200" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M9 5l7 7-7 7" 
+                />
+              </svg>
+            </Link>
+            
+            <p className="text-center text-xs text-gray-500 mt-2">
+              For administrators and staff members only
             </p>
           </div>
         </motion.div>
