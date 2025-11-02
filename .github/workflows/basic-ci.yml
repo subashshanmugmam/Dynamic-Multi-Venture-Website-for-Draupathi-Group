@@ -76,9 +76,28 @@ jobs:
     - name: Run tests
       working-directory: ./draupathi-backend
       run: |
+        echo "Running backend validation..."
+        
+        # Syntax check for main server file
+        if [ -f "src/server.js" ]; then
+          echo "Checking server.js syntax..."
+          node -c src/server.js
+          echo "✅ Server syntax is valid"
+        fi
+        
+        # Check other important files
+        if [ -f "src/controllers/adminAuthController.js" ]; then
+          echo "Checking adminAuthController.js syntax..."
+          node -c src/controllers/adminAuthController.js
+          echo "✅ AdminAuth controller syntax is valid"
+        fi
+        
+        # Run npm test if available
         if npm run | grep -q "test"; then
+          echo "Running npm test..."
           npm test
         else
-          echo "No test script found, running syntax check"
-          node -c src/server.js
+          echo "✅ No test script found, but syntax checks passed"
         fi
+        
+        echo "✅ Backend validation completed successfully"
