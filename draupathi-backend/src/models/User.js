@@ -26,8 +26,13 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'super-admin'],
-    default: 'admin'
+    enum: ['user', 'admin', 'super-admin'],
+    default: 'user'
+  },
+  phone: {
+    type: String,
+    trim: true,
+    sparse: true // Allow multiple null values but unique non-null values
   },
   isActive: {
     type: Boolean,

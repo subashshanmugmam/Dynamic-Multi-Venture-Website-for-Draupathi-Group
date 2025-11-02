@@ -13,7 +13,11 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    // Add any additional headers or modify request here
+    // Add auth token for admin requests
+    const token = localStorage.getItem('adminToken');
+    if (token && config.url.includes('/admin/')) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {

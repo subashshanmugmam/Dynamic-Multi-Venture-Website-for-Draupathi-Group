@@ -316,8 +316,66 @@ const changePassword = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc    Register a new public user
+// @route   POST /api/auth/register/public
+// @access  Public
+const registerPublic = asyncHandler(async (req, res) => {
+  const { firstName, lastName, email, password, phone } = req.body;
+
+  // Check if user already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    throw new ConflictError('User already exists with this email');
+  }
+
+  // Create user with default 'user' role
+  const user = await User.create({
+    name: `${firstName} ${lastName}`.trim(),
+    email,
+    password,
+    phone: phone || undefined,
+    role: 'user', // Default role for public registration
+    isActive: true
+  });
+
+  // Generate tokens
+  const tokens = generateTokenPair(user);
+
+  // Set refresh token in user record
+  user.refreshToken = tokens.refreshToken;
+  await user.save({ validateBeforeSave: false });
+
+  // Set cookies
+  const cookieOptions = getCookieOptions(process.env.NODE_ENV === 'production');
+  res.cookie('accessToken', tokens.accessToken, {
+    ...cookieOptions,
+    maxAge: 15 * 60 * 1000 // 15 minutes
+  });
+  res.cookie('refreshToken', tokens.refreshToken, cookieOptions);
+
+  res.status(201).json({
+    success: true,
+    message: 'Registration successful! Welcome to Draupathi Group.',
+    data: {
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+        createdAt: user.createdAt
+      },
+      tokens: {
+        accessToken: tokens.accessToken,
+        expiresIn: tokens.expiresIn
+      }
+    }
+  });
+});
+
 module.exports = {
   register,
+  registerPublic,
   login,
   refreshToken,
   logout,

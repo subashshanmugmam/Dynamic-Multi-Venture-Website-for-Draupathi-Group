@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/layout/Layout';
+import AdminLayout from './layouts/AdminLayout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -13,23 +14,13 @@ import Irrigations from './pages/ventures/Irrigations';
 import DFoods from './pages/ventures/DFoods';
 import ThemeDemo from './components/theme/ThemeDemo';
 import ThemeTest from './pages/ThemeTest';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import UserManagement from './pages/admin/UserManagement';
+import ContentManagement from './pages/admin/ContentManagement';
+import ContentEditor from './pages/admin/ContentEditor';
+import PublicLogin from './pages/PublicLogin';
 import './App.css';
-
-// Placeholder components for routes
-
-
-const Login = () => (
-  <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-    <div className="text-center">
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        Login Page Coming Soon
-      </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Authentication system is being developed for a secure login experience.
-      </p>
-    </div>
-  </div>
-);
 
 const VentureDetail = () => (
   <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -44,16 +35,54 @@ const VentureDetail = () => (
   </div>
 );
 
-const Admin = () => (
-  <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-    <div className="text-center">
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        Admin Dashboard Coming Soon
-      </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Administrative interface is under development for managing content and settings.
-      </p>
-    </div>
+// Placeholder admin components
+
+const VentureManagement = () => (
+  <div className="text-center py-12">
+    <h1 className="text-2xl font-bold text-gray-900 mb-4">Venture Management</h1>
+    <p className="text-gray-600">Coming soon...</p>
+  </div>
+);
+
+const ProductManagement = () => (
+  <div className="text-center py-12">
+    <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Management</h1>
+    <p className="text-gray-600">Coming soon...</p>
+  </div>
+);
+
+const MediaLibrary = () => (
+  <div className="text-center py-12">
+    <h1 className="text-2xl font-bold text-gray-900 mb-4">Media Library</h1>
+    <p className="text-gray-600">Coming soon...</p>
+  </div>
+);
+
+const BannerManagement = () => (
+  <div className="text-center py-12">
+    <h1 className="text-2xl font-bold text-gray-900 mb-4">Banner Management</h1>
+    <p className="text-gray-600">Coming soon...</p>
+  </div>
+);
+
+const AnnouncementManagement = () => (
+  <div className="text-center py-12">
+    <h1 className="text-2xl font-bold text-gray-900 mb-4">Announcement Management</h1>
+    <p className="text-gray-600">Coming soon...</p>
+  </div>
+);
+
+const ContactManagement = () => (
+  <div className="text-center py-12">
+    <h1 className="text-2xl font-bold text-gray-900 mb-4">Contact Management</h1>
+    <p className="text-gray-600">Coming soon...</p>
+  </div>
+);
+
+const AdminSettings = () => (
+  <div className="text-center py-12">
+    <h1 className="text-2xl font-bold text-gray-900 mb-4">Settings</h1>
+    <p className="text-gray-600">Coming soon...</p>
   </div>
 );
 
@@ -64,6 +93,7 @@ function App() {
         <Router>
           <AnimatePresence mode="wait">
             <Routes>
+              {/* Public Routes */}
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
@@ -75,8 +105,25 @@ function App() {
                 <Route path="theme-demo" element={<ThemeDemo />} />
                 <Route path="theme-test" element={<ThemeTest />} />
                 <Route path="ventures/:slug" element={<VentureDetail />} />
-                <Route path="login" element={<Login />} />
-                <Route path="admin" element={<Admin />} />
+                <Route path="login" element={<PublicLogin />} />
+              </Route>
+
+              {/* Admin Routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="users" element={<UserManagement />} />
+                <Route path="content" element={<ContentManagement />} />
+                <Route path="content/create" element={<ContentEditor mode="create" />} />
+                <Route path="content/edit/:id" element={<ContentEditor mode="edit" />} />
+                <Route path="ventures/*" element={<VentureManagement />} />
+                <Route path="products" element={<ProductManagement />} />
+                <Route path="media" element={<MediaLibrary />} />
+                <Route path="banners" element={<BannerManagement />} />
+                <Route path="announcements" element={<AnnouncementManagement />} />
+                <Route path="contacts" element={<ContactManagement />} />
+                <Route path="settings/*" element={<AdminSettings />} />
               </Route>
             </Routes>
           </AnimatePresence>

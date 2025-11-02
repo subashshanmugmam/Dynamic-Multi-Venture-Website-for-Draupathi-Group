@@ -2,6 +2,7 @@ const express = require('express');
 const { body } = require('express-validator');
 const {
   register,
+  registerPublic,
   login,
   refreshToken,
   logout,
@@ -37,6 +38,28 @@ const registerValidation = [
     .optional()
     .isIn(['admin', 'super-admin'])
     .withMessage('Role must be either admin or super-admin'),
+];
+
+const publicRegisterValidation = [
+  body('firstName')
+    .trim()
+    .isLength({ min: 1, max: 25 })
+    .withMessage('First name must be between 1 and 25 characters'),
+  body('lastName')
+    .trim()
+    .isLength({ min: 1, max: 25 })
+    .withMessage('Last name must be between 1 and 25 characters'),
+  body('email')
+    .isEmail()
+    .normalizeEmail()
+    .withMessage('Please provide a valid email'),
+  body('password')
+    .isLength({ min: 6 })
+    .withMessage('Password must be at least 6 characters long'),
+  body('phone')
+    .optional()
+    .isMobilePhone()
+    .withMessage('Please provide a valid phone number'),
 ];
 
 const loginValidation = [
@@ -84,6 +107,15 @@ router.post('/register',
   registerValidation,
   validationMiddleware,
   register
+);
+
+// @desc    Register a new public user
+// @route   POST /api/auth/register/public
+// @access  Public
+router.post('/register/public',
+  publicRegisterValidation,
+  validationMiddleware,
+  registerPublic
 );
 
 // @desc    Login user
