@@ -86,11 +86,6 @@ jobs:
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: password
-        options: >-
-          --health-cmd "echo 'db.runCommand(\"ping\").ok' | mongo localhost:27017/test --quiet"
-          --health-interval 15s
-          --health-timeout 10s
-          --health-retries 8
         ports:
           - 27017:27017
     
@@ -135,25 +130,67 @@ jobs:
     - name: Install dependencies
       run: npm ci --legacy-peer-deps
     
-    - name: Wait for MongoDB (with timeout)
+    - name: Wait for MongoDB
       run: |
-        echo "Waiting for MongoDB to be ready..."
+        echo "🔄 Waiting for MongoDB to be ready..."
         
-        # Wait for port to be open (max 60 seconds)
-        timeout=60
+        # Install netcat if not available
+        if ! command -v nc &> /dev/null; then
+          sudo apt-get update -qq
+          sudo apt-get install -y netcat-openbsd
+        fi
+        
+        # Wait for port to be open (max 90 seconds)
+        timeout=90
         while ! nc -z localhost 27017 && [ $timeout -gt 0 ]; do
-          echo "MongoDB port 27017 not ready yet... ($timeout seconds remaining)"
-          sleep 3
-          timeout=$((timeout - 3))
+          echo "⏳ MongoDB port 27017 not ready yet... (${timeout}s remaining)"
+          sleep 5
+          timeout=$((timeout - 5))
         done
         
         if ! nc -z localhost 27017; then
-          echo "MongoDB failed to start within timeout, but continuing with tests..."
+          echo "❌ MongoDB failed to start within timeout"
+          echo "🔍 Checking Docker containers:"
+          docker ps -a
+          echo "🔍 Checking MongoDB logs:"
+          docker logs $(docker ps -aq --filter "ancestor=mongo:7.0") || echo "No MongoDB container logs found"
+          exit 1
         else
-          echo "MongoDB port is open, giving it a moment to initialize..."
-          sleep 5
-          echo "MongoDB should be ready!"
+          echo "✅ MongoDB port is open!"
+          
+          # Give MongoDB additional time to fully initialize
+          echo "⏳ Allowing MongoDB to complete initialization..."
+          sleep 10
+          
+          echo "🎉 MongoDB should be ready for connections!"
         fi
+    
+    - name: Test MongoDB connection
+      run: |
+        echo "🧪 Testing MongoDB connection with Node.js..."
+        node -e "
+        const { MongoClient } = require('mongodb');
+        const uri = 'mongodb://root:password@localhost:27017/test?authSource=admin';
+        
+        async function testConnection() {
+          try {
+            const client = new MongoClient(uri);
+            await client.connect();
+            console.log('✅ Successfully connected to MongoDB');
+            
+            const result = await client.db('test').command({ ping: 1 });
+            console.log('✅ MongoDB ping successful:', result);
+            
+            await client.close();
+            console.log('✅ MongoDB connection test completed successfully');
+          } catch (err) {
+            console.error('❌ MongoDB connection failed:', err.message);
+            console.log('ℹ️  This is non-critical for syntax-only tests');
+          }
+        }
+        
+        testConnection();
+        "
     
     - name: Run tests (if available)
       run: |

@@ -4,16 +4,25 @@ This repository now includes GitHub Actions workflows for continuous integration
 
 ## Workflows
 
-### 1. Basic CI (`basic-ci.yml`)
+### 1. Simple CI (`simple-ci.yml`) ⭐ **Recommended for most cases**
+A reliable workflow that runs on push to main/develop branches:
+- **Frontend Job**: Runs lint, build, and build size check
+- **Backend Job**: Comprehensive syntax validation for all JS files
+- **Security Job**: Dependency vulnerability scanning
+- **No external dependencies** (no MongoDB required)
+- Fast execution and high reliability
+
+### 2. Basic CI (`basic-ci.yml`)
 A simple workflow that runs on push to main branch:
 - **Frontend Job**: Runs `npm install` and `npm test` in `./draupathi-frontend`
-- **Backend Job**: Runs `npm install` and `npm test` in `./draupathi-backend`
+- **Backend Job**: Runs `npm install` and enhanced syntax checking
 - Uses `actions/cache` to cache `node_modules` for faster builds
+- Improved error handling and validation
 
-### 2. Advanced CI/CD (`ci-cd.yml`)
+### 3. Advanced CI/CD (`ci-cd.yml`)
 A comprehensive workflow with additional features:
 - Matrix builds (Node.js 18.x and 20.x)
-- MongoDB service for backend testing
+- MongoDB service for backend testing (with improved connection handling)
 - Security audits
 - Build artifact uploads
 - Deployment job (template)
