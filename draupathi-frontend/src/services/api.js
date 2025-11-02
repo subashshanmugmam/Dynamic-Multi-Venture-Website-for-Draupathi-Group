@@ -193,7 +193,7 @@ export const apiService = {
   // Batch upload utility
   uploadFiles: (files, folder = 'general') => {
     const formData = new FormData();
-    files.forEach((file, index) => {
+    files.forEach((file) => {
       formData.append(`files`, file);
     });
     formData.append('folder', folder);

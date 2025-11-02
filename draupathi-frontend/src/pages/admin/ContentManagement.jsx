@@ -219,7 +219,7 @@ const SEOManagement = () => (
 
 // Main Content Management Component
 const ContentManagement = () => {
-  const location = useLocation();
+  const _location = useLocation();
   
   const navigationItems = [
     { name: 'Pages', href: '/admin/content/pages' },

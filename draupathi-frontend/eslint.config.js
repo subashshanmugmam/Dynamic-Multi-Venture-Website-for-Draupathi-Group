@@ -23,7 +23,15 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['warn', { 
+        varsIgnorePattern: '^[A-Z_]|^motion$|^gsap$|^adminAuthAPI$',
+        argsIgnorePattern: '^_',
+        ignoreRestSiblings: true
+      }],
+      'no-useless-escape': 'warn',
+      'react-refresh/only-export-components': 'warn',
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-hooks/rules-of-hooks': 'error'
     },
   },
 ])

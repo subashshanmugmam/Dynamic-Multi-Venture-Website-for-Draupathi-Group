@@ -25,7 +25,7 @@ const UserManagement = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterRole, setFilterRole] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
-  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [_selectedUsers, _setSelectedUsers] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
@@ -128,7 +128,7 @@ const UserManagement = () => {
     }
   };
 
-  const handleToggleStatus = async (userId, currentStatus) => {
+  const handleToggleStatus = async (userId, _currentStatus) => {
     try {
       const token = localStorage.getItem('adminToken');
       const response = await fetch(`/api/admin/users/${userId}/toggle-status`, {

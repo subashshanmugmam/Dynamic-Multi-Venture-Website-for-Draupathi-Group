@@ -59,7 +59,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const StatCard = ({ title, value, change, changeType, icon: Icon, color, loading }) => (
+  const StatCard = ({ title, value, change, changeType, icon: _Icon, color, loading }) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}

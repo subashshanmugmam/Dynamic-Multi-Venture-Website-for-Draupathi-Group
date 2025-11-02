@@ -43,7 +43,7 @@ const ArrowRightIcon = () => (
 );
 
 const ITSolutions = () => {
-  const [activeService, setActiveService] = useState(0);
+  const [_activeService, _setActiveService] = useState(0);
   const [counterRef, counterInView] = useIntersection({ threshold: 0.5 });
 
   const stats = [

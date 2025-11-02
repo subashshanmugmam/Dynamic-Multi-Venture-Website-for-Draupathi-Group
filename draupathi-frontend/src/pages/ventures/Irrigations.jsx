@@ -44,7 +44,7 @@ const ArrowRightIcon = () => (
 );
 
 const Irrigations = () => {
-  const [activeProduct, setActiveProduct] = useState(0);
+  const [_activeProduct, _setActiveProduct] = useState(0);
   const [counterRef, counterInView] = useIntersection({ threshold: 0.5 });
 
   const stats = [

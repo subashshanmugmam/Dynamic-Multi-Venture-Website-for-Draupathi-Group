@@ -14,10 +14,10 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false); // Set to false to avoid loading states
-  const [error, setError] = useState(null);
+  const [_error, _setError] = useState(null);
 
   // Mock functions for development
-  const login = async (email, password) => {
+  const login = async (email, _password) => {
     setLoading(true);
     // Simulate login without API call
     setTimeout(() => {

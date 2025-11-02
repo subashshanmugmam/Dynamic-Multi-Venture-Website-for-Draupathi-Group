@@ -68,8 +68,8 @@ export const slugify = (text) => {
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/[^\w-]+/g, '') // Remove all non-word chars
+    .replace(/--+/g, '-') // Replace multiple - with single -
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, ''); // Trim - from end of text
 };
@@ -89,7 +89,7 @@ export const isValidEmail = (email) => {
 
 // Validate phone
 export const isValidPhone = (phone) => {
-  const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,15}$/;
+  const phoneRegex = /^[+]?[0-9\s\-()]{10,15}$/;
   return phoneRegex.test(phone);
 };
 
@@ -251,7 +251,7 @@ export const copyToClipboard = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
     return true;
-  } catch (err) {
+  } catch (_err) {
     // Fallback for older browsers
     const textArea = document.createElement('textarea');
     textArea.value = text;

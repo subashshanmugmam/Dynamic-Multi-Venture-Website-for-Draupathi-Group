@@ -43,7 +43,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { theme: _theme, toggleTheme: _toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
