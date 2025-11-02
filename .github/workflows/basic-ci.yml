@@ -33,7 +33,7 @@ jobs:
     
     - name: Install dependencies
       working-directory: ./draupathi-frontend
-      run: npm install
+      run: npm install --legacy-peer-deps
     
     - name: Run tests
       working-directory: ./draupathi-frontend
@@ -71,7 +71,7 @@ jobs:
     
     - name: Install dependencies
       working-directory: ./draupathi-backend
-      run: npm install
+      run: npm install --legacy-peer-deps
     
     - name: Run tests
       working-directory: ./draupathi-backend
