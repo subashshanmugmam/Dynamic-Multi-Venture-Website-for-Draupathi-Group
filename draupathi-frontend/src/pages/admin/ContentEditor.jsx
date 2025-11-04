@@ -129,7 +129,7 @@ const ContentEditor = ({ mode = 'create' }) => {
     }));
   };
 
-  const ToolbarButton = ({ icon: _Icon, onClick, active = false, title }) => (
+  const ToolbarButton = ({ icon: Icon, onClick, active = false, title }) => (
     <button
       type="button"
       onClick={onClick}
