@@ -19,6 +19,14 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import UserManagement from './pages/admin/UserManagement';
 import ContentManagement from './pages/admin/ContentManagement';
 import ContentEditor from './pages/admin/ContentEditor';
+import VentureManagement from './pages/admin/VentureManagement';
+import ProductManagement from './pages/admin/ProductManagement';
+import MediaLibrary from './pages/admin/MediaLibrary';
+import BannerManagement from './pages/admin/BannerManagement';
+import AnnouncementManagement from './pages/admin/AnnouncementManagement';
+import ContactFormManagement from './pages/admin/ContactFormManagement';
+import AdminSettings from './pages/admin/AdminSettings';
+import DevelopmentNotice from './components/common/DevelopmentNotice';
 import PublicLogin from './pages/PublicLogin';
 import './App.css';
 
@@ -35,61 +43,11 @@ const VentureDetail = () => (
   </div>
 );
 
-// Placeholder admin components
-
-const VentureManagement = () => (
-  <div className="text-center py-12">
-    <h1 className="text-2xl font-bold text-gray-900 mb-4">Venture Management</h1>
-    <p className="text-gray-600">Coming soon...</p>
-  </div>
-);
-
-const ProductManagement = () => (
-  <div className="text-center py-12">
-    <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Management</h1>
-    <p className="text-gray-600">Coming soon...</p>
-  </div>
-);
-
-const MediaLibrary = () => (
-  <div className="text-center py-12">
-    <h1 className="text-2xl font-bold text-gray-900 mb-4">Media Library</h1>
-    <p className="text-gray-600">Coming soon...</p>
-  </div>
-);
-
-const BannerManagement = () => (
-  <div className="text-center py-12">
-    <h1 className="text-2xl font-bold text-gray-900 mb-4">Banner Management</h1>
-    <p className="text-gray-600">Coming soon...</p>
-  </div>
-);
-
-const AnnouncementManagement = () => (
-  <div className="text-center py-12">
-    <h1 className="text-2xl font-bold text-gray-900 mb-4">Announcement Management</h1>
-    <p className="text-gray-600">Coming soon...</p>
-  </div>
-);
-
-const ContactManagement = () => (
-  <div className="text-center py-12">
-    <h1 className="text-2xl font-bold text-gray-900 mb-4">Contact Management</h1>
-    <p className="text-gray-600">Coming soon...</p>
-  </div>
-);
-
-const AdminSettings = () => (
-  <div className="text-center py-12">
-    <h1 className="text-2xl font-bold text-gray-900 mb-4">Settings</h1>
-    <p className="text-gray-600">Coming soon...</p>
-  </div>
-);
-
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+        <DevelopmentNotice />
         <Router>
           <AnimatePresence mode="wait">
             <Routes>
@@ -122,7 +80,7 @@ function App() {
                 <Route path="media" element={<MediaLibrary />} />
                 <Route path="banners" element={<BannerManagement />} />
                 <Route path="announcements" element={<AnnouncementManagement />} />
-                <Route path="contacts" element={<ContactManagement />} />
+                <Route path="contacts" element={<ContactFormManagement />} />
                 <Route path="settings/*" element={<AdminSettings />} />
               </Route>
             </Routes>
