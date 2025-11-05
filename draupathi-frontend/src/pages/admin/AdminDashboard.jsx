@@ -20,6 +20,7 @@ const AdminDashboard = () => {
   const [recentActivity, setRecentActivity] = useState([]);
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     console.log('AdminDashboard mounted, checking authentication...');
@@ -63,28 +64,46 @@ const AdminDashboard = () => {
         return response.json();
       };
       
+      // Test backend connectivity first
+      try {
+        const healthCheck = await fetch('http://localhost:5000/health');
+        if (!healthCheck.ok) {
+          throw new Error('Backend server is not responding');
+        }
+        console.log('✅ Backend server is healthy');
+      } catch (healthError) {
+        console.error('❌ Backend server health check failed:', healthError);
+        throw new Error('Cannot connect to backend server');
+      }
+
       // Fetch dashboard stats with proper error handling
       try {
         const [statsRes, activityRes, analyticsRes] = await Promise.all([
-          fetch('/api/admin/dashboard/stats', {
+          fetch('http://localhost:5000/api/admin/dashboard/stats', {
             headers: { 
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           }),
-          fetch('/api/admin/dashboard/activity', {
+          fetch('http://localhost:5000/api/admin/dashboard/activity', {
             headers: { 
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           }),
-          fetch('/api/admin/dashboard/analytics', {
+          fetch('http://localhost:5000/api/admin/dashboard/analytics', {
             headers: { 
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           })
         ]);
+
+        // Log response details for debugging
+        console.log('API Response Details:');
+        console.log('Stats status:', statsRes.status, 'Content-Type:', statsRes.headers.get('content-type'));
+        console.log('Activity status:', activityRes.status, 'Content-Type:', activityRes.headers.get('content-type'));
+        console.log('Analytics status:', analyticsRes.status, 'Content-Type:', analyticsRes.headers.get('content-type'));
 
         const [statsData, activityData, analyticsData] = await Promise.all([
           handleResponse(statsRes),
@@ -112,6 +131,10 @@ const AdminDashboard = () => {
         
       } catch (apiError) {
         console.error('API call failed:', apiError);
+        console.error('Error details:', {
+          message: apiError.message,
+          stack: apiError.stack
+        });
         console.log('Loading mock data for development...');
         
         // Set mock data for development
@@ -159,10 +182,12 @@ const AdminDashboard = () => {
             { date: '2024-11-03', views: 145 },
             { date: '2024-11-04', views: 167 }
           ],
-          userGrowth: [
-            { month: 'Oct', users: 1200 },
-            { month: 'Nov', users: 1247 }
-          ]
+          userGrowth: 3.8, // Percentage growth
+          contentGrowth: 12.5, // Percentage growth  
+          viewsGrowth: 8.2, // Percentage growth
+          totalPageViews: 15420,
+          uniqueVisitors: 3248,
+          bounceRate: 42
         });
         
         console.log('Mock data loaded successfully');
@@ -170,17 +195,23 @@ const AdminDashboard = () => {
 
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const StatCard = ({ title, value, change, changeType, icon: Icon, color, loading }) => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-    >
+  const StatCard = ({ title, value, change, changeType, icon: Icon, color, loading }) => {
+    if (!title || !color) {
+      return null;
+    }
+    
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+      >
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
@@ -203,13 +234,18 @@ const AdminDashboard = () => {
           )}
         </div>
         <div className={`p-3 rounded-lg ${color}`}>
-          <Icon className="w-6 h-6 text-white" />
+          {Icon && <Icon className="w-6 h-6 text-white" />}
         </div>
       </div>
     </motion.div>
-  );
+    );
+  };
 
   const ActivityItem = ({ activity }) => {
+    if (!activity) {
+      return null;
+    }
+
     const getActivityIcon = (action) => {
       switch (action) {
         case 'create': return <CheckCircle className="w-4 h-4 text-green-500" />;
@@ -244,19 +280,44 @@ const AdminDashboard = () => {
             {' '}
             <span className="text-gray-600">{activity.action}d</span>
             {' '}
-            <span className="font-medium">{activity.resourceType}</span>
-            {activity.resourceName && (
+            <span className="font-medium">{activity.type || activity.resourceType}</span>
+            {(activity.resourceName || activity.details) && (
               <>
                 {' '}
-                <span className="text-gray-600">"{activity.resourceName}"</span>
+                <span className="text-gray-600">"{activity.resourceName || activity.details}"</span>
               </>
             )}
           </p>
-          <p className="text-xs text-gray-500 mt-1">{formatTime(activity.createdAt)}</p>
+          <p className="text-xs text-gray-500 mt-1">{formatTime(activity.timestamp || activity.createdAt)}</p>
         </div>
       </div>
     );
   };
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md w-full">
+          <div className="flex items-center space-x-3">
+            <AlertTriangle className="w-6 h-6 text-red-600" />
+            <div>
+              <h3 className="text-lg font-semibold text-red-900">Dashboard Error</h3>
+              <p className="text-sm text-red-700 mt-1">{error}</p>
+            </div>
+          </div>
+          <button
+            onClick={() => {
+              setError(null);
+              fetchDashboardData();
+            }}
+            className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (loading && !stats) {
     return (
@@ -300,7 +361,7 @@ const AdminDashboard = () => {
         <StatCard
           title="Total Users"
           value={stats?.totalUsers || 0}
-          change={analytics?.userGrowth}
+          change={typeof analytics?.userGrowth === 'number' ? analytics.userGrowth : null}
           changeType={analytics?.userGrowth >= 0 ? 'positive' : 'negative'}
           icon={Users}
           color="bg-gradient-to-r from-blue-500 to-blue-600"
@@ -309,7 +370,7 @@ const AdminDashboard = () => {
         <StatCard
           title="Total Content"
           value={stats?.totalContent || 0}
-          change={analytics?.contentGrowth}
+          change={typeof analytics?.contentGrowth === 'number' ? analytics.contentGrowth : null}
           changeType={analytics?.contentGrowth >= 0 ? 'positive' : 'negative'}
           icon={FileText}
           color="bg-gradient-to-r from-green-500 to-green-600"
@@ -318,7 +379,7 @@ const AdminDashboard = () => {
         <StatCard
           title="Page Views"
           value={stats?.totalViews || 0}
-          change={analytics?.viewsGrowth}
+          change={typeof analytics?.viewsGrowth === 'number' ? analytics.viewsGrowth : null}
           changeType={analytics?.viewsGrowth >= 0 ? 'positive' : 'negative'}
           icon={Eye}
           color="bg-gradient-to-r from-purple-500 to-purple-600"
@@ -327,6 +388,7 @@ const AdminDashboard = () => {
         <StatCard
           title="Active Sessions"
           value={stats?.activeSessions || 0}
+          change={null}
           icon={Activity}
           color="bg-gradient-to-r from-orange-500 to-orange-600"
           loading={loading}
@@ -347,10 +409,10 @@ const AdminDashboard = () => {
               <h2 className="text-lg font-semibold text-gray-900">Recent Activity</h2>
             </div>
             <div className="p-3">
-              {recentActivity.length > 0 ? (
+              {Array.isArray(recentActivity) && recentActivity.length > 0 ? (
                 <div className="space-y-1 max-h-96 overflow-y-auto">
-                  {recentActivity.map((activity) => (
-                    <ActivityItem key={activity._id} activity={activity} />
+                  {recentActivity.map((activity, index) => (
+                    <ActivityItem key={activity._id || activity.id || index} activity={activity} />
                   ))}
                 </div>
               ) : (

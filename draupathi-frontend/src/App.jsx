@@ -27,6 +27,7 @@ import AnnouncementManagement from './pages/admin/AnnouncementManagement';
 import ContactFormManagement from './pages/admin/ContactFormManagement';
 import AdminSettings from './pages/admin/AdminSettings';
 import DevelopmentNotice from './components/common/DevelopmentNotice';
+import ErrorBoundary from './components/common/ErrorBoundary';
 import PublicLogin from './pages/PublicLogin';
 import './App.css';
 
@@ -69,8 +70,16 @@ function App() {
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
-                <Route path="dashboard" element={<AdminDashboard />} />
+                <Route index element={
+                  <ErrorBoundary fallbackMessage="Dashboard failed to load. The admin system might be starting up.">
+                    <AdminDashboard />
+                  </ErrorBoundary>
+                } />
+                <Route path="dashboard" element={
+                  <ErrorBoundary fallbackMessage="Dashboard failed to load. The admin system might be starting up.">
+                    <AdminDashboard />
+                  </ErrorBoundary>
+                } />
                 <Route path="users" element={<UserManagement />} />
                 <Route path="content" element={<ContentManagement />} />
                 <Route path="content/create" element={<ContentEditor mode="create" />} />

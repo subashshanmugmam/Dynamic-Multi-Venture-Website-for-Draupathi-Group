@@ -32,6 +32,7 @@ const AdminSettings = () => {
   const [activeTab, setActiveTab] = useState('general');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [notification, setNotification] = useState(null);
   const [settings, setSettings] = useState({
     general: {
       siteName: 'Draupathi Enterprise',
@@ -88,7 +89,31 @@ const AdminSettings = () => {
       retentionDays: 30,
       backupLocation: 'cloud',
       includeUploads: true,
-      includeDatabase: true
+      includeDatabase: true,
+      maxBackupSize: 1000, // MB
+      compressionLevel: 'medium'
+    },
+    system: {
+      maintenanceMode: false,
+      debugMode: false,
+      cacheEnabled: true,
+      cacheTTL: 3600,
+      logLevel: 'info',
+      maxLogSize: 100, // MB
+      enableCors: true,
+      rateLimitEnabled: true,
+      maxRequestsPerMinute: 100
+    },
+    advanced: {
+      apiVersion: 'v1',
+      databasePoolSize: 10,
+      sessionSecret: '••••••••••••••••',
+      jwtSecret: '••••••••••••••••',
+      encryptionKey: '••••••••••••••••',
+      allowedOrigins: ['http://localhost:5173', 'http://localhost:5174'],
+      customHeaders: {},
+      webhookUrl: '',
+      webhookSecret: ''
     }
   });
 
@@ -98,7 +123,9 @@ const AdminSettings = () => {
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'appearance', label: 'Appearance', icon: Palette },
     { id: 'integrations', label: 'Integrations', icon: Globe },
-    { id: 'backup', label: 'Backup', icon: Database }
+    { id: 'backup', label: 'Backup & Data', icon: Database },
+    { id: 'system', label: 'System Status', icon: Monitor },
+    { id: 'advanced', label: 'Advanced', icon: Key }
   ];
 
   const handleSettingChange = (category, key, value) => {
@@ -114,15 +141,91 @@ const AdminSettings = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Simulate API call to save settings
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Here you would make the actual API call
+      // await api.updateSettings(settings);
+      
       console.log('Settings saved:', settings);
+      
       // Show success notification
+      setNotification({
+        type: 'success',
+        message: 'Settings saved successfully!'
+      });
+      
+      // Clear notification after 3 seconds
+      setTimeout(() => setNotification(null), 3000);
     } catch (error) {
       console.error('Error saving settings:', error);
+      setNotification({
+        type: 'error',
+        message: 'Failed to save settings. Please try again.'
+      });
+      setTimeout(() => setNotification(null), 3000);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleExportSettings = () => {
+    try {
+      const dataStr = JSON.stringify(settings, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `draupathi-settings-${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      setNotification({
+        type: 'success',
+        message: 'Settings exported successfully!'
+      });
+      setTimeout(() => setNotification(null), 3000);
+    } catch (error) {
+      setNotification({
+        type: 'error',
+        message: 'Failed to export settings.'
+      });
+      setTimeout(() => setNotification(null), 3000);
+    }
+  };
+
+  const handleImportSettings = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    
+    input.onchange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const importedSettings = JSON.parse(e.target.result);
+            setSettings(importedSettings);
+            setNotification({
+              type: 'success',
+              message: 'Settings imported successfully!'
+            });
+            setTimeout(() => setNotification(null), 3000);
+          } catch (error) {
+            setNotification({
+              type: 'error',
+              message: 'Invalid settings file format.'
+            });
+            setTimeout(() => setNotification(null), 3000);
+          }
+        };
+        reader.readAsText(file);
+      }
+    };
+    
+    input.click();
   };
 
   const GeneralSettings = () => (
@@ -665,6 +768,31 @@ const AdminSettings = () => {
             </div>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Max Backup Size (MB)</label>
+              <input
+                type="number"
+                value={settings.backup.maxBackupSize}
+                onChange={(e) => handleSettingChange('backup', 'maxBackupSize', parseInt(e.target.value))}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Compression Level</label>
+              <select
+                value={settings.backup.compressionLevel}
+                onChange={(e) => handleSettingChange('backup', 'compressionLevel', e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="none">No Compression</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
+
           <div>
             <h4 className="font-medium text-gray-900 mb-3">Backup Content</h4>
             <div className="space-y-2">
@@ -708,6 +836,322 @@ const AdminSettings = () => {
     </div>
   );
 
+  const SystemSettings = () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">System Status & Performance</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          {/* System Status Cards */}
+          <div className="col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-100 rounded-lg">
+                    <Server className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-green-900">Server Status</h4>
+                    <p className="text-sm text-green-600">Online • 99.9% uptime</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-blue-100 rounded-lg">
+                    <Database className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-blue-900">Database</h4>
+                    <p className="text-sm text-blue-600">Connected • 2.3GB used</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-orange-100 rounded-lg">
+                    <Cloud className="w-5 h-5 text-orange-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-orange-900">Storage</h4>
+                    <p className="text-sm text-orange-600">68% used • 1.2TB available</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Maintenance Mode */}
+          <div className="col-span-2">
+            <div className="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <AlertTriangle className="w-6 h-6 text-yellow-600" />
+                <div>
+                  <h4 className="font-medium text-yellow-900">Maintenance Mode</h4>
+                  <p className="text-sm text-yellow-700">
+                    Enable to temporarily disable public access for maintenance
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => handleSettingChange('system', 'maintenanceMode', !settings.system.maintenanceMode)}
+                className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 ${
+                  settings.system.maintenanceMode ? 'bg-yellow-600' : 'bg-gray-200'
+                }`}
+              >
+                <span className={`inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  settings.system.maintenanceMode ? 'translate-x-5' : 'translate-x-0'
+                }`} />
+              </button>
+            </div>
+          </div>
+
+          {/* System Settings */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Cache TTL (seconds)</label>
+            <input
+              type="number"
+              value={settings.system.cacheTTL}
+              onChange={(e) => handleSettingChange('system', 'cacheTTL', parseInt(e.target.value))}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Log Level</label>
+            <select
+              value={settings.system.logLevel}
+              onChange={(e) => handleSettingChange('system', 'logLevel', e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="error">Error</option>
+              <option value="warn">Warning</option>
+              <option value="info">Info</option>
+              <option value="debug">Debug</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Max Log Size (MB)</label>
+            <input
+              type="number"
+              value={settings.system.maxLogSize}
+              onChange={(e) => handleSettingChange('system', 'maxLogSize', parseInt(e.target.value))}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Rate Limit (requests/min)</label>
+            <input
+              type="number"
+              value={settings.system.maxRequestsPerMinute}
+              onChange={(e) => handleSettingChange('system', 'maxRequestsPerMinute', parseInt(e.target.value))}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        {/* Toggle Settings */}
+        <div className="mt-6">
+          <h4 className="font-medium text-gray-900 mb-3">System Features</h4>
+          <div className="space-y-3">
+            {[
+              { key: 'debugMode', label: 'Debug Mode', desc: 'Enable detailed error logging and debugging' },
+              { key: 'cacheEnabled', label: 'Cache System', desc: 'Enable caching to improve performance' },
+              { key: 'enableCors', label: 'CORS Support', desc: 'Enable Cross-Origin Resource Sharing' },
+              { key: 'rateLimitEnabled', label: 'Rate Limiting', desc: 'Enable API rate limiting protection' }
+            ].map(setting => (
+              <div key={setting.key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <h5 className="font-medium text-gray-900">{setting.label}</h5>
+                  <p className="text-sm text-gray-600">{setting.desc}</p>
+                </div>
+                <button
+                  onClick={() => handleSettingChange('system', setting.key, !settings.system[setting.key])}
+                  className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                    settings.system[setting.key] ? 'bg-blue-600' : 'bg-gray-200'
+                  }`}
+                >
+                  <span className={`inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                    settings.system[setting.key] ? 'translate-x-5' : 'translate-x-0'
+                  }`} />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const AdvancedSettings = () => (
+    <div className="space-y-6">
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+        <div className="flex items-start space-x-3">
+          <AlertTriangle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <h4 className="font-medium text-red-900">Advanced Settings</h4>
+            <p className="text-sm text-red-700 mt-1">
+              These settings can affect system functionality. Only modify if you know what you're doing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">API Configuration</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">API Version</label>
+            <select
+              value={settings.advanced.apiVersion}
+              onChange={(e) => handleSettingChange('advanced', 'apiVersion', e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="v1">Version 1.0</option>
+              <option value="v2">Version 2.0 (Beta)</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Database Pool Size</label>
+            <input
+              type="number"
+              value={settings.advanced.databasePoolSize}
+              onChange={(e) => handleSettingChange('advanced', 'databasePoolSize', parseInt(e.target.value))}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Security Keys</h3>
+        <div className="space-y-4">
+          {[
+            { key: 'sessionSecret', label: 'Session Secret', desc: 'Used for session encryption' },
+            { key: 'jwtSecret', label: 'JWT Secret', desc: 'Used for JWT token signing' },
+            { key: 'encryptionKey', label: 'Encryption Key', desc: 'Used for data encryption' }
+          ].map(secret => (
+            <div key={secret.key}>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{secret.label}</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={settings.advanced[secret.key]}
+                  onChange={(e) => handleSettingChange('advanced', secret.key, e.target.value)}
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-5 h-5 text-gray-400" />
+                  ) : (
+                    <Eye className="w-5 h-5 text-gray-400" />
+                  )}
+                </button>
+              </div>
+              <p className="text-xs text-gray-500 mt-1">{secret.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">CORS & Origins</h3>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Allowed Origins</label>
+          <div className="space-y-2">
+            {settings.advanced.allowedOrigins.map((origin, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <input
+                  type="url"
+                  value={origin}
+                  onChange={(e) => {
+                    const newOrigins = [...settings.advanced.allowedOrigins];
+                    newOrigins[index] = e.target.value;
+                    handleSettingChange('advanced', 'allowedOrigins', newOrigins);
+                  }}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <button
+                  onClick={() => {
+                    const newOrigins = settings.advanced.allowedOrigins.filter((_, i) => i !== index);
+                    handleSettingChange('advanced', 'allowedOrigins', newOrigins);
+                  }}
+                  className="p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={() => {
+                handleSettingChange('advanced', 'allowedOrigins', [...settings.advanced.allowedOrigins, '']);
+              }}
+              className="flex items-center space-x-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            >
+              <span>+ Add Origin</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Webhook Configuration</h3>
+        <div className="grid grid-cols-1 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Webhook URL</label>
+            <input
+              type="url"
+              value={settings.advanced.webhookUrl}
+              onChange={(e) => handleSettingChange('advanced', 'webhookUrl', e.target.value)}
+              placeholder="https://your-webhook-endpoint.com"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Webhook Secret</label>
+            <input
+              type="password"
+              value={settings.advanced.webhookSecret}
+              onChange={(e) => handleSettingChange('advanced', 'webhookSecret', e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Danger Zone */}
+      <div className="border-t border-gray-200 pt-6">
+        <h3 className="text-lg font-semibold text-red-900 mb-4">Danger Zone</h3>
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button className="flex items-center justify-center space-x-2 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+              <RefreshCw className="w-5 h-5" />
+              <span>Reset to Defaults</span>
+            </button>
+            <button className="flex items-center justify-center space-x-2 px-6 py-3 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition-colors">
+              <Database className="w-5 h-5" />
+              <span>Clear All Data</span>
+            </button>
+            <button className="flex items-center justify-center space-x-2 px-6 py-3 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition-colors">
+              <X className="w-5 h-5" />
+              <span>Factory Reset</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'general': return <GeneralSettings />;
@@ -716,30 +1160,91 @@ const AdminSettings = () => {
       case 'appearance': return <AppearanceSettings />;
       case 'integrations': return <IntegrationsSettings />;
       case 'backup': return <BackupSettings />;
+      case 'system': return <SystemSettings />;
+      case 'advanced': return <AdvancedSettings />;
       default: return <GeneralSettings />;
     }
   };
 
   return (
     <div className="space-y-6">
+      {/* Notification */}
+      {notification && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          className={`fixed top-4 right-4 z-50 max-w-sm w-full shadow-lg rounded-lg p-4 ${
+            notification.type === 'success'
+              ? 'bg-green-50 border border-green-200'
+              : 'bg-red-50 border border-red-200'
+          }`}
+        >
+          <div className="flex items-start space-x-3">
+            <div className={`flex-shrink-0 ${
+              notification.type === 'success' ? 'text-green-600' : 'text-red-600'
+            }`}>
+              {notification.type === 'success' ? (
+                <Check className="w-5 h-5" />
+              ) : (
+                <AlertTriangle className="w-5 h-5" />
+              )}
+            </div>
+            <div className="flex-1">
+              <p className={`text-sm font-medium ${
+                notification.type === 'success' ? 'text-green-900' : 'text-red-900'
+              }`}>
+                {notification.message}
+              </p>
+            </div>
+            <button
+              onClick={() => setNotification(null)}
+              className={`flex-shrink-0 ${
+                notification.type === 'success' ? 'text-green-400 hover:text-green-600' : 'text-red-400 hover:text-red-600'
+              }`}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </motion.div>
+      )}
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
           <p className="text-gray-600 mt-1">Manage your system preferences and configuration</p>
         </div>
-        <button
-          onClick={handleSave}
-          disabled={loading}
-          className="inline-flex items-center px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? (
-            <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-          ) : (
-            <Save className="w-5 h-5 mr-2" />
-          )}
-          {loading ? 'Saving...' : 'Save Changes'}
-        </button>
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handleExportSettings}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export
+            </button>
+            <button
+              onClick={handleImportSettings}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Import
+            </button>
+          </div>
+          <button
+            onClick={handleSave}
+            disabled={loading}
+            className="inline-flex items-center px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
+            ) : (
+              <Save className="w-5 h-5 mr-2" />
+            )}
+            {loading ? 'Saving...' : 'Save Changes'}
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">

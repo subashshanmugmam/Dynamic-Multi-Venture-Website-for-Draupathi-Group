@@ -42,9 +42,9 @@ const AdminLayout = () => {
       href: '/admin/content',
       icon: FileText,
       children: [
-        { name: 'Pages', href: '/admin/content/pages' },
-        { name: 'Blogs', href: '/admin/content/blogs' },
-        { name: 'SEO', href: '/admin/content/seo' },
+        { name: 'Pages', href: '/admin/content/pages', icon: FileText },
+        { name: 'Blogs', href: '/admin/content/blogs', icon: FileText },
+        { name: 'SEO', href: '/admin/content/seo', icon: Search },
       ]
     },
     {
@@ -52,8 +52,8 @@ const AdminLayout = () => {
       href: '/admin/ventures',
       icon: FileText,
       children: [
-        { name: 'All Ventures', href: '/admin/ventures/list' },
-        { name: 'Categories', href: '/admin/ventures/categories' },
+        { name: 'All Ventures', href: '/admin/ventures/list', icon: FileText },
+        { name: 'Categories', href: '/admin/ventures/categories', icon: Settings },
       ]
     },
     {
@@ -133,6 +133,7 @@ const AdminLayout = () => {
     const [expanded, setExpanded] = useState(isActiveRoute(item.href));
     const hasChildren = item.children && item.children.length > 0;
     const isActive = isActiveRoute(item.href);
+    const IconComponent = item.icon;
 
     return (
       <div>
@@ -149,7 +150,11 @@ const AdminLayout = () => {
           `}
         >
           <div className="flex items-center gap-3">
-            <item.icon className="w-5 h-5" />
+            {IconComponent ? (
+              <IconComponent className="w-5 h-5" />
+            ) : (
+              <div className="w-5 h-5 rounded bg-gray-300" />
+            )}
             <span className={sidebarOpen ? 'block' : 'hidden'}>{item.name}</span>
           </div>
           {hasChildren && sidebarOpen && (
@@ -159,18 +164,20 @@ const AdminLayout = () => {
           )}
         </NavLink>
 
-        {hasChildren && expanded && sidebarOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mt-2 space-y-1"
-          >
-            {item.children.map((child) => (
-              <NavigationItem key={child.href} item={child} level={level + 1} />
-            ))}
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {hasChildren && expanded && sidebarOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-2 space-y-1"
+            >
+              {item.children?.map((child) => (
+                <NavigationItem key={child.href || child.name} item={child} level={level + 1} />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   };
