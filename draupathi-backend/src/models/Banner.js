@@ -58,7 +58,7 @@ const bannerSchema = new mongoose.Schema({
   },
   targetVenture: {
     type: String,
-    enum: ['all', 'it-solutions', 'irrigations', 'd-foods'],
+    enum: ['all', 'it-solutions', 'd-foods'],
     default: 'all'
   },
   clickCount: {

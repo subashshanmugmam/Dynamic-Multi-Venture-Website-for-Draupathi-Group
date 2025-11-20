@@ -47,10 +47,10 @@ const ITSolutions = () => {
   const [counterRef, counterInView] = useIntersection({ threshold: 0.5 });
 
   const stats = [
-    { label: 'Projects Delivered', value: 200, suffix: '+' },
-    { label: 'Happy Clients', value: 150, suffix: '+' },
-    { label: 'Team Members', value: 25, suffix: '+' },
-    { label: 'Years Experience', value: 15, suffix: '+' }
+    { label: 'Projects Delivered', value: 150, suffix: '+' },
+    { label: 'Happy Clients', value: 200, suffix: '+' },
+    { label: 'Team Members', value: 50, suffix: '+' },
+    { label: 'Years Experience', value: 2, suffix: '+' }
   ];
 
   const services = [
@@ -241,7 +241,7 @@ const ITSolutions = () => {
             <AnimatedSection animation="fadeInRight">
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="/WhatsApp Image 2025-08-30 at 10.17.46_d916e403.jpg"
                   alt="IT Solutions"
                   className="w-full h-96 object-cover rounded-2xl shadow-2xl"
                 />

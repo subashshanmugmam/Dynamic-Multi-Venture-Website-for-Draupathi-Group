@@ -37,14 +37,14 @@ const Home = () => {
       id: 1,
       title: "Innovating for a",
       subtitle: "Sustainable Future",
-      description: "Leading the way in technology, agriculture, and food innovation with sustainable solutions that drive progress across multiple industries.",
+      description: "Leading the way in technology and innovation with sustainable solutions that drive progress across multiple industries.",
       image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       cta: "Explore Our Ventures",
       link: "/ventures",
       stats: [
-        { label: "Years of Excellence", value: "15+", icon: "🏆" },
+        { label: "Years of Excellence", value: "2+", icon: "🏆" },
         { label: "Successful Projects", value: "200+", icon: "📈" },
-        { label: "Satisfied Clients", value: "1000+", icon: "👥" }
+        { label: "Satisfied Clients", value: "150+", icon: "👥" }
       ]
     },
     {
@@ -55,32 +55,14 @@ const Home = () => {
       image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       cta: "IT Solutions",
       link: "/ventures/it-solutions"
-    },
-    {
-      id: 3,
-      title: "Smart Agriculture",
-      subtitle: "Irrigation Innovation",
-      description: "Revolutionary irrigation systems that optimize water usage and maximize agricultural productivity through smart technology.",
-      image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Discover Irrigation",
-      link: "/ventures/irrigations"
-    },
-    {
-      id: 4,
-      title: "Premium Food Products",
-      subtitle: "Quality Nutrition from Farm to Table",
-      description: "Delivering fresh, healthy, and sustainably sourced food products to communities worldwide.",
-      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80",
-      cta: "Taste Quality",
-      link: "/ventures/d-foods"
     }
   ];
 
   const statistics = [
-    { label: "Happy Clients", value: 500, suffix: "+" },
-    { label: "Projects Completed", value: 1200, suffix: "+" },
-    { label: "Years Experience", value: 15, suffix: "+" },
-    { label: "Team Members", value: 100, suffix: "+" }
+    { label: "Happy Clients", value: 200, suffix: "+" },
+    { label: "Projects Completed", value: 150, suffix: "+" },
+    { label: "Years Experience", value: 2, suffix: "+" },
+    { label: "Team Members", value: 50, suffix: "+" }
   ];
 
   const features = [
@@ -95,26 +77,23 @@ const Home = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Rajesh Kumar",
-      position: "CEO, TechCorp India",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-      text: "Draupathi Group transformed our business operations with their innovative IT solutions. Outstanding service and support!",
+      name: "Client from Chennai, India",
+      position: "Technology Client",
+      text: "Draupathi IT Solutions transformed our business digitally with their reliable tech support and innovative ideas.",
       rating: 5
     },
     {
       id: 2,
-      name: "Priya Sharma",
-      position: "Farm Owner, Green Valley Farms",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-      text: "Their smart irrigation system increased our crop yield by 40% while reducing water consumption. Incredible technology!",
+      name: "Retail Partner, Tamil Nadu",
+      position: "Business Partner",
+      text: "The products from D Foods are authentic and top-quality. We're proud to be long-term partners.",
       rating: 5
     },
     {
       id: 3,
-      name: "Amit Patel",
-      position: "Restaurant Chain Owner",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-      text: "D Foods consistently delivers fresh, quality products. Their supply chain management is exceptional and reliable.",
+      name: "Agriculture Client, Namakkal",
+      position: "Agriculture Sector",
+      text: "Professional service and great customer experience — D Groups truly stands out.",
       rating: 5
     }
   ];
@@ -322,8 +301,9 @@ const Home = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {VENTURES.map((venture, index) => (
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl">
+              {VENTURES.map((venture, index) => (
               <AnimatedSection
                 key={`venture-${venture.id}`}
                 animation="fadeInUp"
@@ -383,6 +363,7 @@ const Home = () => {
                 </motion.div>
               </AnimatedSection>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -477,11 +458,11 @@ const Home = () => {
                   </p>
                   
                   <div className="flex items-center">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full mr-4"
-                    />
+                    <div className="w-12 h-12 rounded-full mr-4 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                      <span className="text-white text-sm font-bold">
+                        {testimonial.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                      </span>
+                    </div>
                     <div>
                       <div className="font-semibold text-gray-900 dark:text-white">
                         {testimonial.name}

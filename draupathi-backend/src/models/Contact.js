@@ -32,7 +32,7 @@ const contactSubmissionSchema = new mongoose.Schema({
   venture: {
     type: String,
     required: [true, 'Please specify which venture you are interested in'],
-    enum: ['it-solutions', 'irrigations', 'd-foods', 'general'],
+    enum: ['it-solutions', 'd-foods', 'general'],
     index: true
   },
   subject: {

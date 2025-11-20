@@ -31,7 +31,7 @@ const announcementSchema = new mongoose.Schema({
   },
   targetVenture: {
     type: String,
-    enum: ['all', 'it-solutions', 'irrigations', 'd-foods'],
+    enum: ['all', 'it-solutions', 'd-foods'],
     default: 'all',
     index: true
   },

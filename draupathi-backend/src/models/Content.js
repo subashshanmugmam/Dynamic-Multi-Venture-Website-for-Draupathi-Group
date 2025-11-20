@@ -39,7 +39,7 @@ const contentSchema = new mongoose.Schema({
   // Section-based content (for dynamic sections)
   section: {
     type: String,
-    enum: ['home', 'about', 'footer', 'contact', 'ventures', 'it-solutions', 'irrigations', 'd-foods'],
+    enum: ['home', 'about', 'footer', 'contact', 'ventures', 'it-solutions', 'd-foods'],
     index: true
   },
   key: {

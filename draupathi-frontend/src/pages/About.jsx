@@ -30,9 +30,9 @@ const About = () => {
   const [counterRef, counterInView] = useIntersection({ threshold: 0.5 });
 
   const stats = [
-    { label: 'Years of Excellence', value: 15, suffix: '+' },
-    { label: 'Successful Projects', value: 500, suffix: '+' },
-    { label: 'Happy Clients', value: 1000, suffix: '+' },
+    { label: 'Years of Excellence', value: 2, suffix: '+' },
+    { label: 'Successful Projects', value: 150, suffix: '+' },
+    { label: 'Happy Clients', value: 200, suffix: '+' },
     { label: 'Team Members', value: 50, suffix: '+' }
   ];
 
@@ -61,50 +61,45 @@ const About = () => {
 
   const milestones = [
     {
-      year: '2008',
-      title: 'Company Founded',
-      description: 'Draupathi Group was established with a vision to transform businesses through technology.'
+      year: '2023',
+      title: 'The Beginning',
+      description: 'The foundation of Draupathi IT Solutions, focusing on digital innovation and youth empowerment.'
     },
     {
-      year: '2012',
-      title: 'Irrigation Expansion',
-      description: 'Launched Draupathi Irrigations to provide sustainable agricultural solutions.'
-    },
-    {
-      year: '2015',
-      title: 'Food Division Launch',
-      description: 'Introduced D Foods (Navathanya Products) to deliver premium quality food products.'
-    },
-    {
-      year: '2020',
-      title: 'Digital Transformation',
-      description: 'Accelerated digital solutions and cloud-based services during global changes.'
+      year: '2024',
+      title: 'The Expansion',
+      description: 'Launch of D Carts (E-commerce) and D Foods (Instant Food Products) under D Groups.'
     },
     {
       year: '2025',
+      title: 'The Growth Year',
+      description: 'Introduction of D Irrigations and IT Educational Consulting, expanding our reach and impact across industries.'
+    },
+    {
+      year: 'Today',
       title: 'Continued Growth',
-      description: 'Expanding our reach and impact across multiple industries and regions.'
+      description: 'Today, D Groups continues to grow with strong leadership, innovative ideas, and client satisfaction as our top priority.'
     }
   ];
 
   const team = [
     {
-      name: 'Rajesh Kumar',
-      position: 'Chief Executive Officer',
-      description: 'Visionary leader with 20+ years of experience in technology and business development.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80'
+      name: 'Mr. Udhayarasu E',
+      position: 'Founder & CEO',
+      description: 'Dedicated professionals from multiple sectors managing IT, Food, Irrigation and E-commerce divisions.',
+      image: null
     },
     {
-      name: 'Priya Sharma',
+      name: 'Vasantha Velan',
       position: 'Chief Technology Officer',
       description: 'Technology expert driving innovation across all our digital initiatives.',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80'
+      image: null
     },
     {
-      name: 'Amit Patel',
+      name: 'Kamali M',
       position: 'Head of Operations',
       description: 'Operations specialist ensuring seamless delivery across all business verticals.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80'
+      image: null
     }
   ];
 
@@ -127,8 +122,7 @@ const About = () => {
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay={0.2}>
               <p className="text-xl sm:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                Transforming businesses and communities through innovative technology solutions, 
-                sustainable agriculture, and premium food products since 2008.
+                Founded with a vision to merge innovation, technology, and sustainability, Draupathi Group of Companies has been a trusted name for over 2 years. 
               </p>
             </AnimatedSection>
           </div>
@@ -145,14 +139,15 @@ const About = () => {
                   Our Story
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Founded in 2008 with a vision to bridge the gap between technology and traditional industries, 
-                  Draupathi Group has evolved into a multi-faceted organization serving diverse sectors across 
-                  Tamil Nadu and beyond.
+                 What began as a small initiative has grown into a multi-division organization serving clients across technology, food, and irrigation sectors.
+                 Our strength lies in our dedicated 50+ team members, our passion for excellence and a commitment to creating meaningful impact through every project.
+
                 </p>
+
                 <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                   From our humble beginnings as an IT solutions provider, we have expanded into irrigation 
                   systems and premium food products, always maintaining our core commitment to quality, 
-                  innovation, and customer satisfaction.
+                  innovation and customer satisfaction.
                 </p>
                 <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                   Today, we stand as a testament to the power of diversification and the importance of 
@@ -325,11 +320,11 @@ const About = () => {
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-32 h-32 rounded-full mx-auto mb-6 object-cover"
-                  />
+                  <div className="w-32 h-32 rounded-full mx-auto mb-6 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                    <span className="text-3xl font-bold text-white">
+                      {member.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                    </span>
+                  </div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     {member.name}
                   </h3>

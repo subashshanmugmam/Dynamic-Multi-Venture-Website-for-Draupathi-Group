@@ -51,30 +51,8 @@ const Ventures = () => {
         'ISO 27001 certified processes'
       ]
     },
-    'irrigations': {
-      ...VENTURES[1],
-      longDescription: 'Draupathi Irrigations revolutionizes agriculture through smart irrigation systems. We provide sustainable water management solutions that optimize crop yield while conserving precious water resources.',
-      services: [
-        'Drip Irrigation Systems',
-        'Sprinkler Irrigation',
-        'Smart Water Management',
-        'Greenhouse Automation',
-        'Fertigation Systems',
-        'Solar-Powered Pumping',
-        'Irrigation Consulting',
-        'Maintenance & Support'
-      ],
-      technologies: ['IoT Sensors', 'Solar Technology', 'Automation Systems', 'Mobile Monitoring', 'Weather Integration'],
-      image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-      achievements: [
-        '40% increase in crop yield',
-        '60% water conservation',
-        '500+ farms equipped',
-        'Award-winning innovations'
-      ]
-    },
     'd-foods': {
-      ...VENTURES[2],
+      ...VENTURES[1],
       longDescription: 'D Foods, under our Navathanya brand, delivers premium quality food products from farm to table. We focus on organic, sustainable, and healthy food options for modern families.',
       services: [
         'Organic Rice Products',
@@ -116,8 +94,8 @@ const Ventures = () => {
             </AnimatedSection>
             <AnimatedSection animation="fadeInUp" delay={0.2}>
               <p className="text-xl sm:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                Discover our diverse portfolio of innovative solutions across technology, 
-                agriculture, and food industries, each designed to create lasting value.
+                Discover our diverse portfolio of innovative solutions across technology 
+                and food industries, each designed to create lasting value.
               </p>
             </AnimatedSection>
           </div>

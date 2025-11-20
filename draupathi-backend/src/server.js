@@ -11,9 +11,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Import routes
-const authRoutes = require('./routes/auth.routes');
 const contentRoutes = require('./routes/content.routes');
-const adminRoutes = require('./routes/admin.routes');
 const contactRoutes = require('./routes/contact.routes');
 
 // Import middleware
@@ -39,31 +37,33 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// Strict rate limiting for auth endpoints
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: process.env.NODE_ENV === 'development' ? 1000 : 5, // More lenient in development
-  message: {
-    error: 'Too many authentication attempts, please try again later.',
-  },
-});
-
 // CORS configuration - allow multiple frontend ports for development
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:5174',
   process.env.CORS_ORIGIN
 ].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // Allow requests with no origin (like mobile apps, curl requests, or same-origin from proxy)
     if (!origin) return callback(null, true);
+    
+    // In development, allow ngrok domains
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'dev') {
+      // Allow ngrok domains
+      if (origin.includes('ngrok-free.app') || origin.includes('ngrok-free.dev') || origin.includes('ngrok.io')) {
+        return callback(null, true);
+      }
+    }
     
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     
+    console.log('CORS blocked origin:', origin);
     const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
     return callback(new Error(msg), false);
   },
@@ -89,9 +89,7 @@ app.get('/health', (req, res) => {
 });
 
 // API routes
-app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/content', contentRoutes);
-app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
 
 // Global error handler

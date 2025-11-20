@@ -88,8 +88,8 @@ const Contact = () => {
       icon: <LocationIcon />,
       title: 'Visit Our Office',
       details: [
-        '123 Business Park, Technology City',
-        'Chennai, Tamil Nadu 600001',
+        'Draupathi Group of Companies',
+        'Namakkal, Tamil Nadu',
         'India'
       ],
       action: {
@@ -101,26 +101,22 @@ const Contact = () => {
       icon: <PhoneIcon />,
       title: 'Call Us',
       details: [
-        '+91 12345 67890',
-        '+91 98765 43210',
-        'Toll Free: 1800-123-4567'
+        '+91 7603925412'
       ],
       action: {
         text: 'Call Now',
-        link: 'tel:+911234567890'
+        link: 'tel:+917603925412'
       }
     },
     {
       icon: <MailIcon />,
       title: 'Email Us',
       details: [
-        'info@draupathi.com',
-        'support@draupathi.com',
-        'careers@draupathi.com'
+        'draupathiitsolutions@gmail.com'
       ],
       action: {
         text: 'Send Email',
-        link: 'mailto:info@draupathi.com'
+        link: 'mailto:draupathiitsolutions@gmail.com'
       }
     },
     {
@@ -136,25 +132,11 @@ const Contact = () => {
 
   const officeLocations = [
     {
-      name: 'Head Office - Chennai',
-      address: '123 Business Park, Technology City, Chennai 600001',
-      phone: '+91 12345 67890',
-      email: 'chennai@draupathi.com',
+      name: 'Head Office - Namakkal',
+      address: 'Draupathi Group of Companies, Namakkal, Tamil Nadu, India',
+      phone: '+91 7603925412',
+      email: 'draupathiitsolutions@gmail.com',
       type: 'headquarters'
-    },
-    {
-      name: 'Branch Office - Coimbatore',
-      address: '456 Industrial Area, Coimbatore 641001',
-      phone: '+91 98765 43210',
-      email: 'coimbatore@draupathi.com',
-      type: 'branch'
-    },
-    {
-      name: 'Regional Office - Madurai',
-      address: '789 Commercial Complex, Madurai 625001',
-      phone: '+91 87654 32109',
-      email: 'madurai@draupathi.com',
-      type: 'regional'
     }
   ];
 
@@ -468,100 +450,133 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Office Locations */}
+      {/* Office Locations & Map */}
       <section className="section-py bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Our Office Locations
+              Our Office Location
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Visit us at any of our strategically located offices across Tamil Nadu.
+              Visit us at our headquarters in Namakkal, Tamil Nadu.
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {officeLocations.map((office, index) => (
-              <AnimatedSection
-                key={index}
-                animation="fadeInUp"
-                delay={index * 0.1}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Office Information Card */}
+            <AnimatedSection animation="fadeInLeft">
+              <motion.div
+                className="bg-white dark:bg-gray-700 rounded-2xl p-8 shadow-lg h-full"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
               >
-                <motion.div
-                  className="bg-white dark:bg-gray-700 rounded-2xl p-6 shadow-lg"
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
-                      {office.type === 'headquarters' ? 'HQ' : office.type === 'branch' ? 'BR' : 'RO'}
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
+                    HQ
+                  </div>
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                    {officeLocations[0].name}
+                  </h3>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-3">
+                    <LocationIcon className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white mb-1">Address</h4>
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {officeLocations[0].address}
+                      </p>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {office.name}
-                    </h3>
                   </div>
                   
-                  <div className="space-y-3">
-                    <div className="flex items-start space-x-2">
-                      <LocationIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                      <p className="text-gray-600 dark:text-gray-300">{office.address}</p>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <PhoneIcon className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  <div className="flex items-start space-x-3">
+                    <PhoneIcon className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white mb-1">Phone</h4>
                       <a 
-                        href={`tel:${office.phone}`}
-                        className="text-blue-600 dark:text-blue-400 hover:underline"
+                        href={`tel:${officeLocations[0].phone}`}
+                        className="text-blue-600 dark:text-blue-400 hover:underline text-lg"
                       >
-                        {office.phone}
-                      </a>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <MailIcon className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                      <a 
-                        href={`mailto:${office.email}`}
-                        className="text-blue-600 dark:text-blue-400 hover:underline"
-                      >
-                        {office.email}
+                        {officeLocations[0].phone}
                       </a>
                     </div>
                   </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
+                  
+                  <div className="flex items-start space-x-3">
+                    <MailIcon className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white mb-1">Email</h4>
+                      <a 
+                        href={`mailto:${officeLocations[0].email}`}
+                        className="text-blue-600 dark:text-blue-400 hover:underline"
+                      >
+                        {officeLocations[0].email}
+                      </a>
+                    </div>
+                  </div>
 
-      {/* Map Section */}
-      <section className="section-py bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Find Us on Map
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              Located in the heart of Chennai's business district for easy access.
-            </p>
-          </AnimatedSection>
+                  <div className="pt-4 border-t border-gray-200 dark:border-gray-600">
+                    <div className="flex items-start space-x-3">
+                      <ClockIcon className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="font-medium text-gray-900 dark:text-white mb-1">Business Hours</h4>
+                        <div className="text-gray-600 dark:text-gray-300 space-y-1">
+                          <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                          <p>Saturday: 9:00 AM - 2:00 PM</p>
+                          <p>Sunday: Closed</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatedSection>
 
-          <AnimatedSection animation="fadeInUp" delay={0.2}>
-            <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl overflow-hidden shadow-lg">
-              {/* Placeholder for Google Maps - Replace with actual Google Maps embed */}
-              <div className="h-96 flex items-center justify-center bg-gray-300 dark:bg-gray-600">
-                <div className="text-center">
-                  <LocationIcon className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-                  <p className="text-gray-600 dark:text-gray-300 text-lg">
-                    Interactive Map Coming Soon
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    123 Business Park, Technology City, Chennai
-                  </p>
+            {/* Interactive Map */}
+            <AnimatedSection animation="fadeInRight">
+              <div className="bg-white dark:bg-gray-700 rounded-2xl overflow-hidden shadow-lg h-full min-h-[500px]">
+                <div className="p-4 bg-blue-600 text-white">
+                  <h3 className="text-lg font-semibold flex items-center">
+                    <LocationIcon className="w-5 h-5 mr-2" />
+                    Find Us on Map
+                  </h3>
+                </div>
+                
+                {/* Google Maps Embed */}
+                <div className="h-[456px]">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125210.52456834967!2d78.08932!3d11.2189!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1ccf52cba8b%3A0x2b761506bbdb0c1d!2sNamakkal%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-full"
+                    title="DIT Solutions Office Location"
+                  ></iframe>
+                </div>
+                
+                {/* Map Footer */}
+                <div className="p-4 bg-gray-50 dark:bg-gray-600 border-t border-gray-200 dark:border-gray-500">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      Namakkal, Tamil Nadu, India
+                    </p>
+                    <a
+                      href="https://maps.google.com/?q=Namakkal,Tamil+Nadu,India"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+                    >
+                      View in Google Maps →
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
+          </div>
         </div>
       </section>
     </div>

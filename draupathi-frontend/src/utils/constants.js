@@ -9,15 +9,6 @@ export const VENTURES_CONFIG = {
     color: '#0ea5e9',
     icon: '💻',
   },
-  IRRIGATIONS: {
-    id: 'irrigations',
-    name: 'Draupathi Irrigations',
-    slug: 'irrigations',
-    shortName: 'Irrigations',
-    description: 'Advanced irrigation systems and agricultural solutions',
-    color: '#22c55e',
-    icon: '🌱',
-  },
   D_FOODS: {
     id: 'd-foods',
     name: 'D Foods (Navathanya Products)',
@@ -39,15 +30,6 @@ export const VENTURES = [
     description: 'Comprehensive IT solutions and software development services',
     color: '#0ea5e9',
     icon: '💻',
-  },
-  {
-    id: 'irrigations',
-    name: 'Draupathi Irrigations',
-    slug: 'irrigations',
-    shortName: 'Irrigations',
-    description: 'Advanced irrigation systems and agricultural solutions',
-    color: '#22c55e',
-    icon: '🌱',
   },
   {
     id: 'd-foods',
@@ -157,21 +139,17 @@ export const SOCIAL_LINKS = [
 // Contact information
 export const CONTACT_INFO = {
   MAIN_OFFICE: {
-    address: 'Main Office Address, City, State, PIN',
-    phone: '+91-XXXXXXXXXX',
-    email: 'info@draupathigroup.com',
+    address: 'Draupathi Group of Companies, Namakkal, Tamil Nadu, India',
+    phone: '+91 7603925412',
+    email: 'draupathiitsolutions@gmail.com',
   },
   IT_SOLUTIONS: {
-    email: 'it@draupathigroup.com',
-    phone: '+91-XXXXXXXXXX',
-  },
-  IRRIGATIONS: {
-    email: 'irrigation@draupathigroup.com',
-    phone: '+91-XXXXXXXXXX',
+    email: 'draupathiitsolutions@gmail.com',
+    phone: '+91 7603925412',
   },
   D_FOODS: {
-    email: 'foods@draupathigroup.com',
-    phone: '+91-XXXXXXXXXX',
+    email: 'draupathiitsolutions@gmail.com',
+    phone: '+91 7603925412',
   },
 };
 

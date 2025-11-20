@@ -141,28 +141,28 @@ const Footer = () => {
                   <LocationIcon />
                   <div>
                     <p className="text-gray-300 dark:text-gray-400 text-sm">
-                      123 Business Park<br />
-                      Technology City<br />
-                      Chennai, Tamil Nadu 600001
+                      Draupathi Group of Companies<br />
+                      Namakkal, Tamil Nadu<br />
+                      India
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <PhoneIcon />
                   <a 
-                    href="tel:+911234567890"
+                    href="tel:+917603925412"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    +91 12345 67890
+                    +91 7603925412
                   </a>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MailIcon />
                   <a 
-                    href="mailto:info@draupathi.com"
+                    href="mailto:draupathiitsolutions@gmail.com"
                     className="text-gray-300 hover:text-white transition-colors text-sm"
                   >
-                    info@draupathi.com
+                    draupathiitsolutions@gmail.com
                   </a>
                 </div>
               </div>

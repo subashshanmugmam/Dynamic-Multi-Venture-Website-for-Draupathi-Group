@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../context/ThemeContext';
 import { VENTURES } from '../../utils/constants';
 import VentureIcon from './VentureIcon';
@@ -42,7 +41,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const { user, logout } = useAuth();
   const { theme: _theme, toggleTheme: _toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -67,6 +65,7 @@ const Navbar = () => {
   const navItems = [
     { name: 'Home', path: '/', exact: true },
     { name: 'About', path: '/about' },
+    { name: 'Products', path: '/products' },
     {
       name: 'Ventures',
       path: '/ventures',
@@ -90,16 +89,6 @@ const Navbar = () => {
       return location.pathname === path;
     }
     return location.pathname.startsWith(path);
-  };
-
-  // Handle logout
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate('/');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
   };
 
   // Animation variants
@@ -183,12 +172,14 @@ const Navbar = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center space-x-3 text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="flex items-center space-x-4 text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              D
-            </div>
-            <span className="hidden sm:block">Draupathi</span>
+            <img 
+              src="/dit-solutions-logo.png" 
+              alt="DIT Solutions" 
+              className="w-16 h-16 lg:w-20 lg:h-20 object-contain rounded-lg p-1"
+            />
+            <span className="hidden sm:block text-xl lg:text-2xl">DIT Solutions</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -255,38 +246,10 @@ const Navbar = () => {
             {/* Theme Toggle */}
             <ThemeToggle size="md" />
 
-            {/* User Menu */}
-            {user ? (
-              <div className="hidden lg:flex items-center space-x-4">
-                {user.role === 'admin' && (
-                  <Link
-                    to="/admin"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                  >
-                    Admin
-                  </Link>
-                )}
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                className="hidden lg:block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-              >
-                Login
-              </Link>
-            )}
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
+              className="lg:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               {isOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
@@ -362,35 +325,6 @@ const Navbar = () => {
                   <div className="flex items-center justify-center py-2">
                     <ThemeToggle size="lg" showLabel={true} />
                   </div>
-                </div>
-
-                {/* Mobile User Actions */}
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
-                  {user ? (
-                    <>
-                      {user.role === 'admin' && (
-                        <Link
-                          to="/admin"
-                          className="block w-full text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                        >
-                          Admin Dashboard
-                        </Link>
-                      )}
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full text-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium"
-                      >
-                        Logout
-                      </button>
-                    </>
-                  ) : (
-                    <Link
-                      to="/login"
-                      className="block w-full text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                    >
-                      Login
-                    </Link>
-                  )}
                 </div>
               </div>
             </motion.div>

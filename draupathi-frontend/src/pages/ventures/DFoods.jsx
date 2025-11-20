@@ -56,7 +56,7 @@ const DFoods = () => {
     { label: 'Premium Products', value: 50, suffix: '+' },
     { label: 'Organic Farms', value: 25, suffix: '+' },
     { label: 'Happy Customers', value: 1000, suffix: '+' },
-    { label: 'Years of Trust', value: 15, suffix: '+' }
+    { label: 'Years of Trust', value: 2, suffix: '+' }
   ];
 
   const productCategories = [
@@ -268,7 +268,7 @@ const DFoods = () => {
             <AnimatedSection animation="fadeInRight">
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  src="/DCarts.jpg"
                   alt="Organic Food Products"
                   className="w-full h-96 object-cover rounded-2xl shadow-2xl"
                 />
