@@ -12,7 +12,6 @@ import DFoods from './pages/ventures/DFoods';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import ThemeDemo from './components/theme/ThemeDemo';
-import ThemeTest from './pages/ThemeTest';
 import './App.css';
 
 const VentureDetail = () => (
@@ -45,7 +44,6 @@ function App() {
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<TermsOfService />} />
               <Route path="theme-demo" element={<ThemeDemo />} />
-              <Route path="theme-test" element={<ThemeTest />} />
               <Route path="ventures/:slug" element={<VentureDetail />} />
             </Route>
           </Routes>
