@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import AnimatedSection from '../components/common/AnimatedSection';
 import { VENTURES, SOCIAL_LINKS } from '../utils/constants';
 import SocialIcon from '../components/common/SocialIcon';
 import VentureIcon from '../components/common/VentureIcon';
+import { emailjsConfig, isEmailJSConfigured } from '../config/emailjs.config';
 
 // Icons
 const PhoneIcon = () => (
@@ -51,6 +53,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,23 +67,67 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setErrorMessage('');
 
-    // Simulate form submission
-    setTimeout(() => {
+    // Check if EmailJS is configured
+    if (!isEmailJSConfigured()) {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        venture: '',
-        subject: '',
-        message: '',
-        preferredContact: 'email'
-      });
-    }, 2000);
+      setSubmitStatus('error');
+      setErrorMessage('Email service is not configured. Please contact the administrator.');
+      console.error('EmailJS is not configured. Please set up environment variables.');
+      return;
+    }
+
+    try {
+      // Get the venture name from the selected venture ID
+      const selectedVenture = VENTURES.find(v => v.id === formData.venture);
+      const ventureName = selectedVenture ? selectedVenture.name : formData.venture || 'General Inquiry';
+
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        from_phone: formData.phone || 'Not provided',
+        from_company: formData.company || 'Not provided',
+        venture_interest: ventureName,
+        subject: formData.subject,
+        message: formData.message,
+        preferred_contact: formData.preferredContact,
+        to_name: 'Draupathi Group',
+      };
+
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
+        templateParams,
+        emailjsConfig.publicKey
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          venture: '',
+          subject: '',
+          message: '',
+          preferredContact: 'email'
+        });
+      }
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+      setErrorMessage(
+        error.text || 
+        'Failed to send message. Please try again or contact us directly via email or phone.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -368,6 +415,19 @@ const Contact = () => {
                       </p>
                     </motion.div>
                   )}
+
+                  {/* Error Message */}
+                  {submitStatus === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                    >
+                      <p className="text-red-800 dark:text-red-200 text-center">
+                        ❌ {errorMessage}
+                      </p>
+                    </motion.div>
+                  )}
                 </form>
               </div>
             </AnimatedSection>
@@ -466,10 +526,24 @@ const Contact = () => {
             {/* Office Information Card */}
             <AnimatedSection animation="fadeInLeft">
               <motion.div
-                className="bg-white dark:bg-gray-700 rounded-2xl p-8 shadow-lg h-full"
+                className="group relative overflow-hidden rounded-2xl shadow-lg h-full transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 hover:-rotate-1 p-8"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3 }}
+                style={{
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(147, 51, 234, 0.06) 50%, rgba(236, 72, 153, 0.06) 100%)'
+                }}
               >
+                {/* Floating particles */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <div className="absolute top-3 right-3 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                  <div className="absolute top-6 right-8 w-1 h-1 bg-purple-400 rounded-full animate-ping" />
+                  <div className="absolute bottom-4 left-4 w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" />
+                </div>
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                
+                <div className="relative bg-white/85 dark:bg-gray-700/85 backdrop-blur-sm rounded-2xl p-8 group-hover:bg-white/95 dark:group-hover:bg-gray-700/95 transition-all duration-500">
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                     HQ
@@ -529,6 +603,7 @@ const Contact = () => {
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>
               </motion.div>
             </AnimatedSection>

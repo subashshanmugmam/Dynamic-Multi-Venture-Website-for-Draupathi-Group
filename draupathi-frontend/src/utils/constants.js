@@ -11,7 +11,7 @@ export const VENTURES_CONFIG = {
   },
   D_FOODS: {
     id: 'd-foods',
-    name: 'D Foods (Navathanya Products)',
+    name: 'D Foods',
     slug: 'd-foods',
     shortName: 'D Foods',
     description: 'Premium food products under Navathanya brand',
@@ -33,7 +33,7 @@ export const VENTURES = [
   },
   {
     id: 'd-foods',
-    name: 'D Foods (Navathanya Products)',
+    name: 'D Foods',
     slug: 'd-foods',
     shortName: 'D Foods',
     description: 'Premium food products under Navathanya brand',

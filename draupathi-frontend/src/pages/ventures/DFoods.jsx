@@ -61,56 +61,109 @@ const DFoods = () => {
 
   const productCategories = [
     {
+      title: 'Kanji & Health Mixes',
+      description: 'Traditional energy-boosting porridges made from nine grains (Navathanya) and heritage rice varieties. A mother\'s touch in every sip.',
+      icon: '🥣',
+      products: [
+        { 
+          name: 'Navathanya Kanji Mix', 
+          price: '₹50/200g', 
+          features: ['Gluten Free', 'High Fiber', '9-Grain Blend'] 
+        },
+        { 
+          name: 'Mappilai Samba Ulundhu Kanji', 
+          price: '₹50/200g', 
+          features: ['Heritage Rice', 'Bone Strength', 'Iron Rich'] 
+        }
+      ],
+      image: '/AiDfoods/Dfoodsimg (5).png',
+      benefits: ['Boosts immunity', 'Easy digestion', 'High fiber content', 'Traditional recipe']
+    },
+    {
+      title: 'Traditional Adai Mixes',
+      description: 'Protein-packed lentil pancake mixes. A perfect blend of Navathanya and heritage ingredients for a wholesome breakfast.',
+      icon: '🥞',
+      products: [
+        { 
+          name: 'Navathanya Adai Mix', 
+          price: '₹220/500g', 
+          features: ['Protein Rich', 'Spiced Blend', 'Ready to Cook'] 
+        },
+        { 
+          name: 'Mappilai Samba Ulundhu Adai', 
+          price: '₹50/200g', 
+          features: ['Red Rice Base', 'High Energy', 'Diabetic Friendly'] 
+        }
+      ],
+      image: '/AiDfoods/Dfoodsimg (4).png',
+      benefits: ['Rich in protein', 'Sustained energy', 'Low glycemic index', 'No preservatives']
+    },
+    {
+      title: 'Idly & Dosa Premixes',
+      description: 'The staple South Indian breakfast reinvented with the power of Navathanya and medicinal herbs. "Unave Marunthu" (Food is Medicine).',
+      icon: '🥘',
+      products: [
+        { 
+          name: 'Navathanya Idly & Dosa Mix', 
+          price: '₹50/200g', 
+          features: ['Crispy Dosas', 'Soft Idlys', 'Multigrain Goodness'] 
+        },
+        { 
+          name: 'Mappilai Samba Ulundhu Mix', 
+          price: '₹50/200g', 
+          features: ['Strengthening', 'Urad Dal Rich', 'Ancient Grains'] 
+        }
+      ],
+      image: '/AiDfoods/Dfoodsimg (1).png',
+      benefits: ['Gut health', 'Fermented goodness', 'Complex carbohydrates', 'Chemical free']
+    },
+    {
+      title: 'Nutritious Kali Mixes',
+      description: 'Reviving the ancient tradition of Kali—nutrient-dense millet balls that provide lasting strength and vitality.',
+      icon: '🌾',
+      products: [
+        { 
+          name: 'Navathanya Kali Mix', 
+          price: '₹50/200g', 
+          features: ['Cooling Food', 'Calcium Rich', 'Traditional Taste'] 
+        },
+        { 
+          name: 'Mappilai Samba Ulundhu Kali', 
+          price: '₹50/200g', 
+          features: ['Muscle Health', 'Iron Fortified', 'Natural Ingredients'] 
+        }
+      ],
+      image: '/AiDfoods/Dfoodsimg (3).png',
+      benefits: ['Strengthens bones', 'High satiety', 'Mineral rich', 'Authentic taste']
+    },
+    {
       title: 'Organic Grains & Cereals',
       description: 'Premium quality organic rice, wheat, millets and traditional grains cultivated without chemicals.',
       icon: '🌾',
       products: [
-        { name: 'Organic Basmati Rice', price: '₹180/kg', features: ['Aromatic', 'Aged 2 years', 'Premium quality'] },
-        { name: 'Red Rice', price: '₹160/kg', features: ['High fiber', 'Antioxidants', 'Traditional variety'] },
-        { name: 'Foxtail Millet', price: '₹120/kg', features: ['Gluten-free', 'High protein', 'Diabetic friendly'] },
-        { name: 'Finger Millet (Ragi)', price: '₹140/kg', features: ['Calcium rich', 'Iron rich', 'Energy booster'] }
+        { 
+          name: 'Organic Basmati Rice', 
+          price: '₹180/kg', 
+          features: ['Aromatic', 'Aged 2 years', 'Premium quality'] 
+        },
+        { 
+          name: 'Red Rice', 
+          price: '₹160/kg', 
+          features: ['High fiber', 'Antioxidants', 'Traditional variety'] 
+        },
+        { 
+          name: 'Foxtail Millet', 
+          price: '₹120/kg', 
+          features: ['Gluten-free', 'High protein', 'Diabetic friendly'] 
+        },
+        { 
+          name: 'Finger Millet (Ragi)', 
+          price: '₹140/kg', 
+          features: ['Calcium rich', 'Iron rich', 'Energy booster'] 
+        }
       ],
-      image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      benefits: ['100% Organic', 'Chemical-free', 'High nutritional value', 'Traditional processing']
-    },
-    {
-      title: 'Cold-Pressed Oils',
-      description: 'Traditional cold-pressed oils extracted using wooden presses to retain natural nutrients and flavor.',
-      icon: '🛢️',
-      products: [
-        { name: 'Groundnut Oil', price: '₹280/liter', features: ['Single press', 'Unrefined', 'High smoke point'] },
-        { name: 'Coconut Oil', price: '₹320/liter', features: ['Virgin quality', 'No heat', 'Natural aroma'] },
-        { name: 'Sesame Oil', price: '₹350/liter', features: ['Traditional method', 'Rich flavor', 'Medicinal properties'] },
-        { name: 'Sunflower Oil', price: '₹240/liter', features: ['Light texture', 'Vitamin E rich', 'Heart healthy'] }
-      ],
-      image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      benefits: ['Zero chemicals', 'Nutrient retention', 'Traditional methods', 'Pure & natural']
-    },
-    {
-      title: 'Spices & Masalas',
-      description: 'Authentic Indian spices and masala blends prepared from organically grown ingredients.',
-      icon: '🌶️',
-      products: [
-        { name: 'Turmeric Powder', price: '₹180/kg', features: ['High curcumin', 'Pesticide-free', 'Sun-dried'] },
-        { name: 'Red Chilli Powder', price: '₹220/kg', features: ['Medium spice', 'Natural color', 'Pure variety'] },
-        { name: 'Coriander Powder', price: '₹160/kg', features: ['Fresh ground', 'Aromatic', 'Premium seeds'] },
-        { name: 'Garam Masala', price: '₹280/kg', features: ['Authentic blend', 'House recipe', 'Rich aroma'] }
-      ],
-      image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      benefits: ['Organic sourcing', 'Traditional grinding', 'No artificial colors', 'Fresh & aromatic']
-    },
-    {
-      title: 'Natural Sweeteners',
-      description: 'Healthy alternatives to refined sugar including jaggery, palm sugar and natural honey.',
-      icon: '🍯',
-      products: [
-        { name: 'Organic Jaggery', price: '₹120/kg', features: ['Unrefined', 'Mineral rich', 'No chemicals'] },
-        { name: 'Palm Sugar', price: '₹180/kg', features: ['Low GI', 'Natural', 'Diabetic friendly'] },
-        { name: 'Wild Honey', price: '₹480/kg', features: ['Raw honey', 'Multifloral', 'Unprocessed'] },
-        { name: 'Coconut Sugar', price: '₹220/kg', features: ['Sustainable', 'Nutrient rich', 'Caramel flavor'] }
-      ],
-      image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      benefits: ['Natural sweetness', 'Health benefits', 'Unprocessed', 'Mineral content']
+      image: '/AiDfoods/Dfoodsimg (2).png',
+      benefits: ['Certified Organic', 'High nutritional value', 'Chemical-free', 'Traditional processing']
     }
   ];
 
@@ -238,9 +291,7 @@ const DFoods = () => {
                 
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
                   D Foods
-                  <span className="block text-3xl sm:text-4xl lg:text-5xl text-orange-200">
-                    (Navathanya Products)
-                  </span>
+                  
                 </h1>
                 
                 <p className="text-xl sm:text-2xl text-orange-100 leading-relaxed">
@@ -268,7 +319,7 @@ const DFoods = () => {
             <AnimatedSection animation="fadeInRight">
               <div className="relative">
                 <img
-                  src="/DCarts.jpg"
+                  src="/dfoodslogo.jpeg"
                   alt="Organic Food Products"
                   className="w-full h-96 object-cover rounded-2xl shadow-2xl"
                 />
@@ -348,81 +399,177 @@ const DFoods = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
-                    <div className="bg-white dark:bg-gray-700 rounded-2xl p-8 shadow-lg">
-                      <div className="flex items-center space-x-4 mb-6">
-                        <div className="text-4xl">{category.icon}</div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                            {category.title}
-                          </h3>
-                        </div>
+                    <div className="bg-white dark:bg-gray-700 rounded-2xl p-8 shadow-lg relative group overflow-hidden">
+                      {/* Half diagonal border overlay on hover */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                        style={{
+                          clipPath: 'polygon(100% 0, 100% 100%, 0 100%)'
+                        }}
+                      >
+                        <div className="absolute inset-0 border-4 border-black dark:border-white rounded-2xl" />
                       </div>
-                      
-                      <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                        {category.description}
-                      </p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        {category.products.map((product, idx) => (
-                          <div key={`${index}-product-${idx}`} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-                            <div className="flex justify-between items-start mb-2">
-                              <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
-                                {product.name}
-                              </h4>
-                              <span className="text-orange-600 dark:text-orange-400 font-bold text-sm">
-                                {product.price}
-                              </span>
-                            </div>
-                            <div className="flex flex-wrap gap-1">
-                              {product.features.map((feature, featureIdx) => (
-                                <span 
-                                  key={`${index}-${idx}-feature-${featureIdx}`}
-                                  className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded text-xs"
-                                >
-                                  {feature}
-                                </span>
-                              ))}
-                            </div>
+                      <div className="relative z-10">
+                        <div className="flex items-center space-x-4 mb-6">
+                          <div className="text-4xl">{category.icon}</div>
+                          <div>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                              {category.title}
+                            </h3>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                        
+                        <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                          {category.description}
+                        </p>
 
-                      <div className="mb-6">
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Key Benefits:</h4>
-                        <div className="grid grid-cols-2 gap-2">
-                          {category.benefits.map((benefit, idx) => (
-                            <div key={`${index}-benefit-${idx}`} className="flex items-center space-x-2">
-                              <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                <CheckIcon className="text-white w-2.5 h-2.5" />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                          {category.products.map((product, idx) => (
+                            <div key={`${index}-product-${idx}`} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                              <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+                                  {product.name}
+                                </h4>
+                                <span className="text-orange-600 dark:text-orange-400 font-bold text-sm">
+                                  {product.price}
+                                </span>
                               </div>
-                              <span className="text-gray-700 dark:text-gray-300 text-sm">{benefit}</span>
+                              <div className="flex flex-wrap gap-1">
+                                {product.features.map((feature, featureIdx) => (
+                                  <span 
+                                    key={`${index}-${idx}-feature-${featureIdx}`}
+                                    className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded text-xs"
+                                  >
+                                    {feature}
+                                  </span>
+                                ))}
+                              </div>
                             </div>
                           ))}
                         </div>
-                      </div>
 
-                      <Link
-                        to="/contact"
-                        className="inline-flex items-center space-x-2 text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold transition-colors"
-                      >
-                        <span>Order Now</span>
-                        <ArrowRightIcon />
-                      </Link>
+                        <div className="mb-6">
+                          <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Key Benefits:</h4>
+                          <div className="grid grid-cols-2 gap-2">
+                            {category.benefits.map((benefit, idx) => (
+                              <div key={`${index}-benefit-${idx}`} className="flex items-center space-x-2">
+                                <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                  <CheckIcon className="text-white w-2.5 h-2.5" />
+                                </div>
+                                <span className="text-gray-700 dark:text-gray-300 text-sm">{benefit}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <Link
+                          to="/contact"
+                          className="inline-flex items-center space-x-2 text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold transition-colors"
+                        >
+                          <span>Order Now</span>
+                          <ArrowRightIcon />
+                        </Link>
+                      </div>
                     </div>
                   </div>
 
                   <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
-                    <motion.img
-                      src={category.image}
-                      alt={category.title}
-                      className="w-full h-80 object-cover rounded-2xl shadow-lg"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
-                    />
+                    <div className="relative group overflow-hidden rounded-2xl">
+                      <motion.img
+                        src={category.image}
+                        alt={category.title}
+                        className="w-full h-80 object-cover rounded-2xl shadow-lg transition-all duration-1000 group-hover:scale-105 border-4 border-orange-300 dark:border-orange-700 group-hover:border-violet-500 dark:group-hover:border-violet-400"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      {/* Bottom-right diagonal gradient overlay with smooth blend - no visible line */}
+                      <div 
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-1000 ease-in-out rounded-2xl"
+                        style={{
+                          background: 'linear-gradient(135deg, transparent 0%, transparent 48%, rgba(191, 219, 254, 0.1) 48%, rgba(191, 219, 254, 0.7) 52%, rgba(196, 181, 253, 0.5) 65%, rgba(251, 207, 232, 0.3) 80%, rgba(254, 240, 138, 0.15) 100%)'
+                        }}
+                      />
+                    </div>
                   </div>
                 </motion.div>
               </AnimatedSection>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Product Stack - Auto Scrolling Images */}
+      <section className="section-py bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 dark:from-gray-900 dark:via-orange-900/10 dark:to-red-900/10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Our Product Stack
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Discover our complete range of traditional South Indian health products
+            </p>
+          </AnimatedSection>
+
+          <div className="relative">
+            <motion.div
+              className="flex gap-8"
+              animate={{
+                x: [0, -2240]
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 20,
+                  ease: "linear"
+                }
+              }}
+            >
+              {/* First set of images */}
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                <motion.div
+                  key={`product-${num}`}
+                  className="flex-shrink-0 w-64 h-64 relative group"
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Background layer */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 dark:from-orange-600 dark:to-red-700 rounded-2xl group-hover:from-violet-500 group-hover:to-orange-500 dark:group-hover:from-violet-600 dark:group-hover:to-orange-600 transition-all duration-300" />
+                  
+                  {/* Card container */}
+                  <div className="relative w-full h-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border-4 border-orange-300 dark:border-orange-700 group-hover:border-violet-500 dark:group-hover:border-violet-400 transition-all duration-300">
+                    <img
+                      src={`/Dfoodsimg/dfoodsimg (${num}).jpeg`}
+                      alt={`Product ${num}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-orange-600/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </motion.div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                <motion.div
+                  key={`product-duplicate-${num}`}
+                  className="flex-shrink-0 w-64 h-64 relative group"
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Background layer */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 dark:from-orange-600 dark:to-red-700 rounded-2xl group-hover:from-violet-500 group-hover:to-orange-500 dark:group-hover:from-violet-600 dark:group-hover:to-orange-600 transition-all duration-300" />
+                  
+                  {/* Card container */}
+                  <div className="relative w-full h-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border-4 border-orange-300 dark:border-orange-700 group-hover:border-violet-500 dark:group-hover:border-violet-400 transition-all duration-300">
+                    <img
+                      src={`/Dfoodsimg/dfoodsimg (${num}).jpeg`}
+                      alt={`Product ${num}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-orange-600/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
@@ -511,22 +658,15 @@ const DFoods = () => {
             {testimonials.map((testimonial, index) => (
               <AnimatedSection key={index} animation="fadeInUp" delay={index * 0.1}>
                 <motion.div
-                  className="bg-white dark:bg-gray-700 rounded-2xl p-6 shadow-lg"
-                  whileHover={{ y: -5 }}
+                  className="bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 dark:from-gray-800 dark:via-orange-900/20 dark:to-red-900/20 rounded-2xl p-6 shadow-lg hover:shadow-2xl border-2 border-orange-200 dark:border-orange-800 hover:border-violet-400 dark:hover:border-violet-500 transition-all duration-300"
+                  whileHover={{ y: -5, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex items-center space-x-3 mb-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">
-                        {testimonial.name}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">{testimonial.location}</p>
-                    </div>
+                  <div className="mb-4">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">{testimonial.location}</p>
                   </div>
 
                   <div className="flex space-x-1 mb-3">

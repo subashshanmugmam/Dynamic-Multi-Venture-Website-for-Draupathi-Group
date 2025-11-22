@@ -28,35 +28,30 @@ const StarIcon = () => (
 );
 
 const Home = () => {
-  const [currentBanner, setCurrentBanner] = useState(0);
+  const [currentBgImage, setCurrentBgImage] = useState(0);
   const [counterRef, counterInView] = useIntersection({ threshold: 0.5 });
 
-  // Premium banner data
-  const banners = [
-    {
-      id: 1,
-      title: "Innovating for a",
-      subtitle: "Sustainable Future",
-      description: "Leading the way in technology and innovation with sustainable solutions that drive progress across multiple industries.",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Explore Our Ventures",
-      link: "/ventures",
-      stats: [
-        { label: "Years of Excellence", value: "2+", icon: "🏆" },
-        { label: "Successful Projects", value: "200+", icon: "📈" },
-        { label: "Satisfied Clients", value: "150+", icon: "👥" }
-      ]
-    },
-    {
-      id: 2,
-      title: "Advanced IT Solutions",
-      subtitle: "Digital Transformation",
-      description: "Comprehensive technology solutions including custom software development, cloud infrastructure, and cybersecurity services.",
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "IT Solutions",
-      link: "/ventures/it-solutions"
-    }
+  // Background images for hero section
+  const backgroundImages = [
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80", // Modern office/business
+    "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80", // Technology/teamwork
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"  // Creative workspace
   ];
+
+  // Premium banner data - Single permanent banner
+  const banner = {
+    id: 1,
+    title: "Innovating for a",
+    subtitle: "Sustainable Future",
+    description: "Leading the way in technology and innovation with sustainable solutions that drive progress across multiple industries.",
+    cta: "Explore Our Ventures",
+    link: "/ventures",
+    stats: [
+      { label: "Years of Excellence", value: "2+", icon: "🏆" },
+      { label: "Successful Projects", value: "200+", icon: "📈" },
+      { label: "Satisfied Clients", value: "150+", icon: "👥" }
+    ]
+  };
 
   const statistics = [
     { label: "Happy Clients", value: 200, suffix: "+" },
@@ -98,14 +93,16 @@ const Home = () => {
     }
   ];
 
-  // Auto-rotate banners
+  // Auto-rotate background images every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentBanner((prev) => (prev + 1) % banners.length);
-    }, 6000);
+      setCurrentBgImage((prev) => (prev + 1) % backgroundImages.length);
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [banners.length]);
+  }, [backgroundImages.length]);
+
+  // Banner stays permanently visible - no auto-rotation
 
   // Hero animations
   const heroVariants = {
@@ -132,21 +129,21 @@ const Home = () => {
     <div className="min-h-screen">
       {/* Enhanced Hero Section with Carousel */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Enhanced Background Images */}
-        {banners.map((banner, index) => (
+        {/* Enhanced Background Images - Rotating */}
+        {backgroundImages.map((image, index) => (
           <motion.div
-            key={`banner-${banner.id}`}
+            key={`bg-image-${index}`}
             className="absolute inset-0"
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ 
-              opacity: currentBanner === index ? 1 : 0,
-              scale: currentBanner === index ? 1 : 1.1
+              opacity: currentBgImage === index ? 1 : 0,
+              scale: currentBgImage === index ? 1 : 1.1
             }}
-            transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
           >
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${banner.image})` }}
+              style={{ backgroundImage: `url(${image})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/30" />
             <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 via-transparent to-purple-900/20" />
@@ -169,31 +166,18 @@ const Home = () => {
             className="max-w-6xl mx-auto"
           >
             <motion.div
-              key={currentBanner}
               variants={heroItemVariants}
               className="space-y-10"
             >
-              {/* Enhanced Badge */}
-              <motion.div
-                variants={heroItemVariants}
-                className="inline-flex items-center"
-              >
-                <span className="group px-8 py-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-indigo-500/20 backdrop-blur-xl border border-white/30 rounded-2xl text-white text-sm font-semibold tracking-wider uppercase shadow-2xl shadow-blue-500/25 hover:shadow-purple-500/30 transition-all duration-500 cursor-pointer">
-                  <span className="inline-block mr-2 group-hover:animate-spin">✨</span>
-                  Pioneering Innovation Since 2009
-                  <span className="inline-block ml-2 group-hover:animate-pulse">🚀</span>
-                </span>
-              </motion.div>
-              
               <motion.h1 
                 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight tracking-tight"
                 variants={heroItemVariants}
               >
                 <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-200 to-purple-200 animate-gradient-x mb-4">
-                  {banners[currentBanner].title}
+                  {banner.title}
                 </span>
                 <span className="block text-3xl sm:text-4xl lg:text-5xl xl:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 animate-gradient-x">
-                  {banners[currentBanner].subtitle}
+                  {banner.subtitle}
                 </span>
               </motion.h1>
               
@@ -201,7 +185,7 @@ const Home = () => {
                 className="text-xl sm:text-2xl text-blue-100/90 max-w-4xl mx-auto leading-relaxed font-light"
                 variants={heroItemVariants}
               >
-                {banners[currentBanner].description}
+                {banner.description}
               </motion.p>
 
               <motion.div 
@@ -209,13 +193,13 @@ const Home = () => {
                 variants={heroItemVariants}
               >
                 <Link
-                  to={banners[currentBanner].link}
+                  to={banner.link}
                   className="group relative inline-flex items-center justify-center px-12 py-5 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white font-bold text-lg rounded-2xl hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 transition-all duration-700 transform hover:-translate-y-3 hover:shadow-2xl hover:shadow-purple-500/40 overflow-hidden min-w-[200px]"
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-white/30 via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-shimmer-slow"></span>
                   <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:animate-shimmer group-hover:opacity-100"></span>
                   <span className="relative z-10 flex items-center gap-4 group-hover:gap-6 transition-all duration-500">
-                    <span className="group-hover:scale-110 transition-transform duration-300">{banners[currentBanner].cta}</span>
+                    <span className="group-hover:scale-110 transition-transform duration-300">{banner.cta}</span>
                     <span className="group-hover:translate-x-2 transition-transform duration-300"><ArrowRightIcon /></span>
                   </span>
                 </Link>
@@ -232,8 +216,8 @@ const Home = () => {
                 </Link>
               </motion.div>
               
-              {/* Statistics Display for first banner */}
-              {currentBanner === 0 && banners[currentBanner].stats && (
+              {/* Statistics Display */}
+              {banner.stats && (
                 <motion.div 
                   className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-16 max-w-4xl mx-auto"
                   variants={heroItemVariants}
@@ -241,7 +225,7 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1, duration: 0.8 }}
                 >
-                  {banners[currentBanner].stats.map((stat, index) => (
+                  {banner.stats.map((stat, index) => (
                     <motion.div
                       key={`hero-stat-${index}`}
                       className="text-center group"
@@ -259,31 +243,33 @@ const Home = () => {
           </motion.div>
         </div>
 
-        {/* Enhanced Banner Navigation */}
+        {/* Background Image Navigation Indicators */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20">
-          <div className="flex items-center space-x-4 bg-black/20 backdrop-blur-xl rounded-full px-6 py-3 border border-white/20">
-            {banners.map((_, index) => (
+          <div className="flex items-center space-x-3 bg-black/30 backdrop-blur-xl rounded-full px-5 py-3 border border-white/20">
+            {backgroundImages.map((_, index) => (
               <button
-                key={`nav-dot-${index}`}
-                onClick={() => setCurrentBanner(index)}
-                className={`relative w-4 h-4 rounded-full transition-all duration-500 group ${
-                  currentBanner === index 
-                    ? 'bg-white shadow-lg shadow-white/30' 
-                    : 'bg-white/40 hover:bg-white/60'
+                key={`bg-indicator-${index}`}
+                onClick={() => setCurrentBgImage(index)}
+                className={`relative w-3 h-3 rounded-full transition-all duration-500 ${
+                  currentBgImage === index 
+                    ? 'bg-white w-8' 
+                    : 'bg-white/50 hover:bg-white/70'
                 }`}
+                aria-label={`View background image ${index + 1}`}
               >
-                {currentBanner === index && (
+                {currentBgImage === index && (
                   <motion.div
-                    layoutId="activeSlide"
+                    layoutId="activeBgImage"
                     className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"
                     transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                   />
                 )}
-                <span className="absolute inset-0 rounded-full bg-white/20 group-hover:bg-white/40 transition-colors duration-300" />
               </button>
             ))}
           </div>
         </div>
+
+        {/* Single banner - no navigation needed */}
       </section>
 
       {/* Enhanced Business Ventures Section */}
@@ -309,58 +295,60 @@ const Home = () => {
                 animation="fadeInUp"
                 delay={index * 0.2}
               >
-                <motion.div
-                  className="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700"
-                  whileHover={{ y: -12, scale: 1.02 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${venture.color}15, ${venture.color}25, ${venture.color}10)` 
+                <Link to={`/ventures/${venture.slug}`}>
+                  <motion.div
+                    className="group relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 ease-out transform hover:scale-105 hover:rotate-1 hover:shadow-2xl hover:shadow-purple-500/25 cursor-pointer"
+                    whileHover={{ y: -12, scale: 1.02 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    style={{
+                      background: `linear-gradient(135deg, ${venture.color}15 0%, ${venture.color}25 25%, ${venture.color}10 50%, ${venture.color}20 75%, ${venture.color}30 100%)`
                     }}
-                  />
-                  
-                  <div 
-                    className="absolute top-0 left-0 right-0 h-1 opacity-70 group-hover:opacity-100 group-hover:h-2 transition-all duration-300"
-                    style={{ backgroundColor: venture.color }}
-                  />
-                  
-                  <div className="relative p-10 text-center">
-                    <motion.div 
-                      className="relative w-20 h-20 mx-auto mb-8"
-                      whileHover={{ rotate: 5, scale: 1.1 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div 
-                        className="w-full h-full rounded-3xl flex items-center justify-center text-white text-3xl shadow-lg group-hover:shadow-xl transition-shadow duration-300"
-                        style={{ backgroundColor: venture.color }}
+                  >
+                    {/* Animated background overlay */}
+                    <div 
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse"
+                      style={{ 
+                        background: `radial-gradient(circle at 50% 50%, ${venture.color}20, transparent 70%)` 
+                      }}
+                    />
+                    
+                    {/* Sparkle effect */}
+                    <div className="absolute top-4 right-4 w-2 h-2 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500 delay-300" />
+                    <div className="absolute top-8 right-8 w-1 h-1 bg-pink-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-700 delay-500" />
+                    
+                    <div className="relative p-10 text-center">
+                      <motion.div 
+                        className="relative w-20 h-20 mx-auto mb-8"
+                        whileHover={{ rotate: 5, scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <VentureIcon icon={venture.icon} className="w-10 h-10" />
-                      </div>
-                      <div 
-                        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-lg"
-                        style={{ backgroundColor: venture.color }}
-                      />
-                    </motion.div>
-                    
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-gray-700 dark:group-hover:text-gray-100 transition-colors duration-300">
-                      {venture.name}
-                    </h3>
-                    
-                    <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed text-lg">
-                      {venture.description}
-                    </p>
+                        <div 
+                          className="w-full h-full rounded-3xl flex items-center justify-center text-white text-3xl shadow-lg group-hover:shadow-xl transition-shadow duration-300"
+                          style={{ backgroundColor: venture.color }}
+                        >
+                          <VentureIcon icon={venture.icon} className="w-10 h-10" />
+                        </div>
+                        <div 
+                          className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-lg"
+                          style={{ backgroundColor: venture.color }}
+                        />
+                      </motion.div>
+                      
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-gray-700 dark:group-hover:text-gray-100 transition-colors duration-300">
+                        {venture.name}
+                      </h3>
+                      
+                      <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed text-lg">
+                        {venture.description}
+                      </p>
 
-                    <Link
-                      to={venture.path}
-                      className="inline-flex items-center justify-center px-8 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-2xl hover:bg-gray-800 dark:hover:bg-gray-100 transform group-hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl"
-                    >
-                      <span className="mr-2">Explore</span>
-                      <ArrowRightIcon />
-                    </Link>
-                  </div>
-                </motion.div>
+                      <div className="inline-flex items-center justify-center px-8 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-2xl hover:bg-gray-800 dark:hover:bg-gray-100 transform group-hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <span className="mr-2">Explore</span>
+                        <ArrowRightIcon />
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
               </AnimatedSection>
             ))}
             </div>
@@ -408,9 +396,22 @@ const Home = () => {
                 animation="fadeInUp"
                 delay={index * 0.1}
               >
-                <div className="flex items-center p-6 bg-gray-50 dark:bg-gray-800 rounded-xl hover:shadow-lg transition-shadow duration-300">
-                  <CheckIcon />
-                  <span className="ml-4 text-lg font-medium text-gray-900 dark:text-white">{feature}</span>
+                <div className="group relative overflow-hidden rounded-xl shadow-md transition-all duration-500 hover:shadow-xl hover:shadow-indigo-500/20 transform hover:scale-105 p-6" style={{
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.08) 50%, rgba(236, 72, 153, 0.08) 100%)'
+                }}>
+                  {/* Magical sparkles */}
+                  <div className="absolute top-1 right-1 w-1 h-1 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300" />
+                  <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-0 group-hover:opacity-80 group-hover:animate-pulse transition-all duration-500 delay-200" />
+                  
+                  {/* Gradient border */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ padding: '1px' }}>
+                    <div className="h-full w-full rounded-xl bg-white/90 dark:bg-gray-800/90" />
+                  </div>
+                  
+                  <div className="relative flex items-center bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-6 group-hover:bg-white/90 dark:group-hover:bg-gray-800/90 transition-all duration-500">
+                    <CheckIcon />
+                    <span className="ml-4 text-lg font-medium text-gray-900 dark:text-white">{feature}</span>
+                  </div>
                 </div>
               </AnimatedSection>
             ))}
@@ -437,38 +438,49 @@ const Home = () => {
                 animation="fadeInUp"
                 delay={index * 0.1}
               >
-                <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="flex space-x-1 mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <motion.div
-                        key={`star-${testimonial.id}-${i}`}
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ delay: 0.5 + (i * 0.1), duration: 0.5, type: "spring" }}
-                        whileHover={{ scale: 1.2, rotate: 360 }}
-                        className="text-yellow-400"
-                      >
-                        <StarIcon />
-                      </motion.div>
-                    ))}
-                  </div>
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 transform hover:scale-105 hover:-rotate-1" style={{
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 50%, rgba(236, 72, 153, 0.05) 100%)'
+                }}>
+                  {/* Animated gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 italic leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
+                  {/* Floating elements */}
+                  <div className="absolute top-2 right-2 w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-20 group-hover:opacity-60 group-hover:animate-bounce transition-all duration-500" />
+                  <div className="absolute bottom-3 left-3 w-2 h-2 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full opacity-30 group-hover:opacity-70 group-hover:animate-pulse transition-all duration-700" />
                   
-                  <div className="flex items-center">
-                    <div className="w-12 h-12 rounded-full mr-4 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                      <span className="text-white text-sm font-bold">
-                        {testimonial.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                      </span>
+                  <div className="relative p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-white/20 dark:border-gray-700/30 rounded-2xl group-hover:bg-white/90 dark:group-hover:bg-gray-900/90 transition-all duration-500">
+                    <div className="flex space-x-1 mb-6">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <motion.div
+                          key={`star-${testimonial.id}-${i}`}
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ delay: 0.5 + (i * 0.1), duration: 0.5, type: "spring" }}
+                          whileHover={{ scale: 1.2, rotate: 360 }}
+                          className="text-yellow-400"
+                        >
+                          <StarIcon />
+                        </motion.div>
+                      ))}
                     </div>
-                    <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">
-                        {testimonial.name}
+                    
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 italic leading-relaxed">
+                      "{testimonial.text}"
+                    </p>
+                    
+                    <div className="flex items-center">
+                      <div className="w-12 h-12 rounded-full mr-4 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                        <span className="text-white text-sm font-bold">
+                          {testimonial.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                        </span>
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        {testimonial.position}
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-white">
+                          {testimonial.name}
+                        </div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {testimonial.position}
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -107,7 +107,7 @@ const Ventures = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Three Pillars of Excellence
+              Two Pillars of Excellence
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Each venture represents our commitment to innovation, quality, and sustainable growth 
@@ -115,48 +115,93 @@ const Ventures = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="space-y-16">
             {VENTURES.map((venture, index) => (
               <AnimatedSection
                 key={venture.id}
                 animation="fadeInUp"
                 delay={index * 0.1}
               >
-                <Link to={`/ventures/${venture.slug}`}>
-                  <motion.div
-                    className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden cursor-pointer"
-                    whileHover={{ y: -10 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                  <div className="absolute inset-0 bg-gradient-to-br opacity-90 group-hover:opacity-100 transition-opacity"
-                       style={{ background: `linear-gradient(135deg, ${venture.color}22, ${venture.color}44)` }}>
-                  </div>
-                  
-                  <div className="relative p-8">
-                    <div 
-                      className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-white text-2xl mb-6 transform group-hover:scale-110 transition-transform"
-                      style={{ backgroundColor: venture.color }}
-                    >
-                      <VentureIcon icon={venture.icon} className="w-8 h-8" />
-                    </div>
-                    
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-                      {venture.name}
-                    </h3>
-                    
-                    <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-center">
-                      {venture.description}
-                    </p>
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                  index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+                }`}>
+                  {/* Content */}
+                  <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
+                    <Link to={`/ventures/${venture.slug}`}>
+                      <motion.div
+                        className="group relative overflow-hidden rounded-2xl shadow-xl transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105 cursor-pointer p-8" 
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.08) 50%, rgba(251, 146, 60, 0.08) 100%)'
+                        }}
+                        whileHover={{ y: -10 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {/* Magic sparkles */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                          <div className="absolute top-4 right-4 w-2 h-2 bg-yellow-400 rounded-full animate-ping" />
+                          <div className="absolute top-8 right-8 w-1 h-1 bg-pink-400 rounded-full animate-pulse" />
+                          <div className="absolute bottom-6 left-6 w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" />
+                        </div>
+                        
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-pink-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                        
+                        <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 group-hover:bg-white/95 dark:group-hover:bg-gray-800/95 transition-all duration-500">
+                          {/* Gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br opacity-90 group-hover:opacity-100 transition-opacity rounded-2xl"
+                               style={{ background: `linear-gradient(135deg, ${venture.color}22, ${venture.color}44)` }}>
+                          </div>
+                          
+                          <div className="relative">
+                            <div 
+                              className="w-20 h-20 rounded-2xl flex items-center justify-center text-white text-3xl mb-6 transform group-hover:scale-110 transition-transform"
+                              style={{ backgroundColor: venture.color }}
+                            >
+                              <VentureIcon icon={venture.icon} className="w-10 h-10" />
+                            </div>
+                            
+                            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                              {venture.name}
+                            </h3>
+                            
+                            <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed text-lg">
+                              {venture.description}
+                            </p>
 
-                    <div className="text-center">
-                      <span className="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors">
-                        <span>Learn More</span>
-                        <ArrowRightIcon />
-                      </span>
-                    </div>
+                            <div>
+                              <span className="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors">
+                                <span>Learn More</span>
+                                <ArrowRightIcon />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </Link>
                   </div>
-                </motion.div>
-                </Link>
+
+                  {/* Image */}
+                  <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
+                    <motion.div
+                      className="relative rounded-2xl overflow-hidden shadow-2xl"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <img
+                        src={venture.id === 'it-solutions' 
+                          ? 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+                          : 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80'
+                        }
+                        alt={venture.name}
+                        className="w-full h-96 object-cover"
+                      />
+                      <div 
+                        className="absolute inset-0 opacity-30"
+                        style={{ background: `linear-gradient(135deg, ${venture.color}, transparent)` }}
+                      />
+                    </motion.div>
+                  </div>
+                </div>
               </AnimatedSection>
             ))}
           </div>

@@ -55,17 +55,17 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
+  // Close mobile menu on route change and scroll to top
   useEffect(() => {
     setIsOpen(false);
     setActiveDropdown(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location]);
 
   // Navigation items
   const navItems = [
     { name: 'Home', path: '/', exact: true },
     { name: 'About', path: '/about' },
-    { name: 'Products', path: '/products' },
     {
       name: 'Ventures',
       path: '/ventures',
@@ -163,8 +163,8 @@ const Navbar = () => {
       variants={navVariants}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg' 
-          : 'bg-transparent'
+          ? 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-lg shadow-lg border-b border-white/20 dark:border-gray-700/20' 
+          : 'bg-white/5 dark:bg-gray-900/5 backdrop-blur-md'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,11 +175,11 @@ const Navbar = () => {
             className="flex items-center space-x-4 text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             <img 
-              src="/dit-solutions-logo.png" 
+              src="/dgroups.png" 
               alt="DIT Solutions" 
-              className="w-16 h-16 lg:w-20 lg:h-20 object-contain rounded-lg p-1"
+              className="w-16 h-16 lg:w-20 lg:h-20 object-contain rounded-full p-1 bg-white/10 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/20 shadow-lg hover:shadow-xl dark:hover:shadow-white/20 hover:shadow-blue-500/20 transition-all duration-300 hover:scale-105 hover:bg-blue-500/20 dark:hover:bg-white/20"
             />
-            <span className="hidden sm:block text-xl lg:text-2xl">DIT Solutions</span>
+            <span className="hidden sm:block text-xl lg:text-2xl">D Groups</span>
           </Link>
 
           {/* Desktop Navigation */}

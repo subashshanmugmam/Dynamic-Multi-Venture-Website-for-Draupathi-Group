@@ -13,8 +13,8 @@
     "test:e2e": "echo \"Add your e2e tests here (e.g., with Cypress or Playwright)\""
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@headlessui/react": "^2.2.9",
-    "axios": "^1.13.0",
     "framer-motion": "^12.23.24",
     "gsap": "^3.13.0",
     "lucide-react": "^0.548.0",

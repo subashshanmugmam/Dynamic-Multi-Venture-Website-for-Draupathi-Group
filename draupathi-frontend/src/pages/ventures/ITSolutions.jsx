@@ -30,6 +30,12 @@ const CloudIcon = () => (
   </svg>
 );
 
+const MarketingIcon = () => (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+  </svg>
+);
+
 const CheckIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -67,7 +73,7 @@ const ITSolutions = () => {
         'Custom CRM/ERP Solutions'
       ],
       technologies: ['React', 'Node.js', 'Python', 'Java', '.NET', 'PHP'],
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
       title: 'Web Application Development',
@@ -113,6 +119,21 @@ const ITSolutions = () => {
       ],
       technologies: ['OWASP', 'SSL/TLS', 'OAuth', 'SIEM', 'Firewall', 'VPN'],
       image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+    },
+    {
+      title: 'Digital Marketing',
+      description: 'Strategic digital marketing solutions to boost your online presence and drive business growth.',
+      icon: <MarketingIcon />,
+      features: [
+        'SEO & SEM Optimization',
+        'Social Media Marketing',
+        'Content Marketing',
+        'Email Marketing Campaigns',
+        'Analytics & Reporting',
+        'Brand Strategy & Development'
+      ],
+      technologies: ['Google Ads', 'Facebook Ads', 'Google Analytics', 'SEMrush', 'Mailchimp', 'HubSpot'],
+      image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     }
   ];
 
@@ -241,9 +262,9 @@ const ITSolutions = () => {
             <AnimatedSection animation="fadeInRight">
               <div className="relative">
                 <img
-                  src="/WhatsApp Image 2025-08-30 at 10.17.46_d916e403.jpg"
+                  src="/dit-solutions-logo.png"
                   alt="IT Solutions"
-                  className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+                  className="w-full h-96 object-cover rounded-3xl shadow-3xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/30 to-transparent rounded-2xl" />
                 
@@ -321,7 +342,20 @@ const ITSolutions = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
-                    <div className="bg-white dark:bg-gray-700 rounded-2xl p-8 shadow-lg">
+                    <div className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 hover:-rotate-1 p-8" style={{
+                      background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(99, 102, 241, 0.08) 50%, rgba(139, 92, 246, 0.08) 100%)'
+                    }}>
+                      {/* Animated particles */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <div className="absolute top-3 right-3 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                        <div className="absolute top-6 right-8 w-1 h-1 bg-indigo-400 rounded-full animate-ping" />
+                        <div className="absolute bottom-4 left-4 w-1.5 h-1.5 bg-violet-400 rounded-full animate-bounce" />
+                      </div>
+                      
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-indigo-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                      
+                      <div className="relative bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-2xl p-8 border-2 border-transparent group-hover:border-violet-500 dark:group-hover:border-fuchsia-500 group-hover:bg-white/95 dark:group-hover:bg-gray-700/95 transition-all duration-500">
                       <div className="flex items-center space-x-4 mb-6">
                         <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white">
                           {service.icon}
@@ -368,8 +402,9 @@ const ITSolutions = () => {
                         className="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors"
                       >
                         <span>Learn More</span>
-                        <ArrowRightIcon />
+                        <ArrowRightIcon />                      
                       </Link>
+                      </div>
                     </div>
                   </div>
 
@@ -390,7 +425,7 @@ const ITSolutions = () => {
       </section>
 
       {/* Technology Stack */}
-      <section className="section-py bg-white dark:bg-gray-900">
+      <section className="section-py bg-white dark:bg-gray-900 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
@@ -401,37 +436,57 @@ const ITSolutions = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {technologies.map((tech, index) => (
-              <AnimatedSection key={index} animation="fadeInUp" delay={index * 0.05}>
-                <motion.div
-                  className="bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl text-center"
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    {tech.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    {tech.category}
-                  </p>
-                  
-                  <div className="relative">
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <motion.div
-                        className="bg-blue-600 h-2 rounded-full"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${tech.level}%` }}
-                        transition={{ duration: 1, delay: index * 0.1 }}
-                      />
+          {/* Auto-scrolling Container */}
+          <div className="relative">
+            {/* Gradient overlays for smooth edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-gray-900 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-gray-900 to-transparent z-10 pointer-events-none" />
+
+            {/* Auto-scrolling animation container */}
+            <div className="overflow-hidden py-4">
+              <motion.div
+                className="flex gap-6"
+                animate={{
+                  x: [0, -2240], // Moves the entire row (8 technologies × 280px width)
+                }}
+                transition={{
+                  x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 20,
+                    ease: "linear",
+                  },
+                }}
+              >
+                {/* Render technologies twice for seamless loop */}
+                {[...technologies, ...technologies].map((tech, index) => (
+                  <motion.div
+                    key={`tech-${index}`}
+                    className="group flex-shrink-0 w-[280px] bg-gray-50 dark:bg-gray-800 hover:bg-gray-900 dark:hover:bg-white p-6 rounded-2xl text-center transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/50 dark:hover:shadow-orange-500/50 dark:hover:bg-gradient-to-br dark:hover:from-violet-900/40 dark:hover:to-orange-900/40"
+                    whileHover={{ y: -8, scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-gray-900 mb-2 transition-colors duration-300">
+                      {tech.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-300 dark:group-hover:text-gray-600 mb-4 transition-colors duration-300">
+                      {tech.category}
+                    </p>
+                    
+                    <div className="relative">
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 group-hover:bg-gray-700 dark:group-hover:bg-gray-300 rounded-full h-2 transition-colors duration-300">
+                        <motion.div
+                          className="bg-blue-600 h-2 rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${tech.level}%` }}
+                          transition={{ duration: 1, delay: (index % technologies.length) * 0.1 }}
+                        />
+                      </div>
                     </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-1 block">
-                      {tech.level}%
-                    </span>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -468,7 +523,7 @@ const ITSolutions = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Client Success Stories Section */}
       <section className="section-py bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-16">
@@ -476,48 +531,96 @@ const ITSolutions = () => {
               Client Success Stories
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Hear from our satisfied clients who have transformed their businesses with our IT solutions.
+              Real results from clients who have transformed their businesses with our IT solutions.
             </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <AnimatedSection key={index} animation="fadeInUp" delay={index * 0.1}>
-                <motion.div
-                  className="bg-white dark:bg-gray-700 rounded-2xl p-8 shadow-lg"
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
+            {/* Rajesh Kumar - TechCorp India */}
+            <AnimatedSection animation="fadeInUp" delay={0}>
+              <motion.div
+                className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 transform hover:scale-105 hover:-rotate-1 p-8" style={{
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(99, 102, 241, 0.05) 50%, rgba(139, 92, 246, 0.05) 100%)'
+                }}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Floating elements */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                  <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" />
+                </div>
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-indigo-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                
+                <div className="relative bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-2xl p-8 group-hover:bg-white/95 dark:group-hover:bg-gray-700/95 transition-all duration-500">
                   <div className="flex space-x-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <svg key={`${index}-star-${i}`} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={`rajesh-star-${i}`} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
                   </div>
                   
                   <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed italic">
-                    "{testimonial.content}"
+                    "Draupathi IT Solutions transformed our legacy system into a modern, scalable platform. Their expertise in cloud migration saved us 40% in operational costs."
                   </p>
                   
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <p className="font-semibold text-gray-900 dark:text-white">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {testimonial.position}
-                      </p>
-                    </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">
+                      Client from Chennai, India
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Technology Client
+                    </p>
                   </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
+                </div>
+              </motion.div>
+            </AnimatedSection>
+
+            {/* Priya Sharma - StartupXYZ */}
+            <AnimatedSection animation="fadeInUp" delay={0.1}>
+              <motion.div
+                className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 transform hover:scale-105 hover:-rotate-1 p-8" style={{
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(99, 102, 241, 0.05) 50%, rgba(139, 92, 246, 0.05) 100%)'
+                }}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Floating elements */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                  <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" />
+                </div>
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-indigo-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                
+                <div className="relative bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-2xl p-8 group-hover:bg-white/95 dark:group-hover:bg-gray-700/95 transition-all duration-500">
+                  <div className="flex space-x-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={`priya-star-${i}`} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed italic">
+                    "The team delivered our MVP ahead of schedule and within budget. Their agile approach and constant communication made the entire process seamless."
+                  </p>
+                  
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">
+                      Retail Partner, Tamil Nadu
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Business Partner
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatedSection>
           </div>
         </div>
       </section>

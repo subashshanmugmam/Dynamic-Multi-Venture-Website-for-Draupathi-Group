@@ -336,7 +336,7 @@ PUT /api/admin/categories/:id - Update category
 DELETE /api/admin/categories/:id - Delete category
 ```
 
-#### Special: D Foods (Navathanya Products)
+#### Special: D Foods
 
 **Product Launch Management:**
 - Mark products as "New Launch"

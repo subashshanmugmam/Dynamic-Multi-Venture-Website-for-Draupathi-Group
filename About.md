@@ -1,7 +1,7 @@
 # Master Prompt for GitHub Copilot: Draupathi Group Dynamic Website
 
 ## Project Overview
-Build a professional, production-ready full-stack dynamic website for Draupathi Group with three ventures: Draupathi IT Solutions, Draupathi Irrigations, and D Foods (Navathanya Products). The website must feature stunning animations, smooth transitions, and complete admin control.
+Build a professional, production-ready full-stack dynamic website for Draupathi Group with three ventures: Draupathi IT Solutions, Draupathi Irrigations, and D Foods. The website must feature stunning animations, smooth transitions, and complete admin control.
 
 ---
 
@@ -145,7 +145,7 @@ GET /api/about/team - Leadership team data
 - Download brochures/catalogs
 - Inquiry form
 
-#### c) D Foods (Navathanya Products)
+#### c) D Foods
 - Product launches section
 - Product categories (Navathanya specific)
 - Nutritional information

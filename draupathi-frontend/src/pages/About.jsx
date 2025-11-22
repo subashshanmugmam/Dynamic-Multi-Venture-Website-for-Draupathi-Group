@@ -84,20 +84,20 @@ const About = () => {
 
   const team = [
     {
-      name: 'Mr. Udhayarasu E',
+      name: 'Udhayarasu E',
       position: 'Founder & CEO',
       description: 'Dedicated professionals from multiple sectors managing IT, Food, Irrigation and E-commerce divisions.',
       image: null
     },
     {
-      name: 'Vasantha Velan',
-      position: 'Chief Technology Officer',
+      name: 'Vasanthavelan R',
+      position: 'Director and Head',
       description: 'Technology expert driving innovation across all our digital initiatives.',
       image: null
     },
     {
       name: 'Kamali M',
-      position: 'Head of Operations',
+      position: 'Director and Head',
       description: 'Operations specialist ensuring seamless delivery across all business verticals.',
       image: null
     }
@@ -106,11 +106,11 @@ const About = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white overflow-hidden">
+      <section className="relative py-20 lg:py-32 bg-gradient-to-br from-violet-600 via-fuchsia-600 to-pink-600 text-white overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-10 -left-10 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl" />
+          <div className="absolute -top-10 -right-10 w-96 h-96 bg-white/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-10 -left-10 w-80 h-80 bg-orange-300/30 rounded-full blur-3xl animate-pulse" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -174,8 +174,10 @@ const About = () => {
       <section className="section-py bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Our Impact in Numbers
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-fuchsia-600 to-orange-500">
+                Our Impact in Numbers
+              </span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               These numbers represent the trust our clients place in us and the impact we've made over the years.
@@ -190,17 +192,35 @@ const About = () => {
                 delay={index * 0.1}
                 className="text-center"
               >
-                <div className="bg-white dark:bg-gray-700 p-6 rounded-2xl shadow-lg">
+                <motion.div 
+                  className="group relative overflow-hidden bg-white dark:bg-gray-700 p-6 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-fuchsia-500/50 transform hover:scale-105 hover:-rotate-1 cursor-pointer"
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(217, 70, 239, 0.08) 50%, rgba(251, 146, 60, 0.08) 100%)'
+                  }}
+                >
+                  {/* Floating particles */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    <div className="absolute top-2 right-2 w-2 h-2 bg-fuchsia-400 rounded-full animate-pulse" />
+                    <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-orange-400 rounded-full animate-bounce" />
+                  </div>
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-fuchsia-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                  
+                  <div className="relative bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-2xl p-6 group-hover:bg-white/95 dark:group-hover:bg-gray-700/95 transition-all duration-500">
                   <AnimatedCounter
                     end={stat.value}
                     suffix={stat.suffix}
                     startAnimation={counterInView}
-                    className="block text-3xl sm:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2"
+                    className="block text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600 mb-2 group-hover:scale-110 transition-transform duration-300"
                   />
-                  <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
+                  <p className="text-lg font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
                     {stat.label}
                   </p>
-                </div>
+                  </div>
+                </motion.div>
               </AnimatedSection>
             ))}
           </div>
@@ -227,17 +247,38 @@ const About = () => {
                 delay={index * 0.1}
               >
                 <motion.div
-                  className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl"
-                  whileHover={{ y: -5 }}
+                  className="group relative overflow-hidden text-center p-6 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/60 transform hover:scale-105 hover:rotate-1 cursor-pointer"
+                  whileHover={{ y: -10, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(244, 114, 182, 0.1) 50%, rgba(251, 146, 60, 0.1) 100%)'
+                  }}
                 >
-                  <div className="text-4xl mb-4">{value.icon}</div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                    {value.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {value.description}
-                  </p>
+                  {/* Magic sparkles */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    <div className="absolute top-3 right-3 w-2 h-2 bg-fuchsia-400 rounded-full animate-ping" />
+                    <div className="absolute top-6 right-8 w-1 h-1 bg-orange-400 rounded-full animate-pulse" />
+                    <div className="absolute bottom-4 left-4 w-1.5 h-1.5 bg-violet-400 rounded-full animate-bounce" />
+                  </div>
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/15 to-orange-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                  
+                  <div className="relative bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 group-hover:bg-gray-50/95 dark:group-hover:bg-gray-800/95 transition-all duration-500">
+                    <motion.div 
+                      className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300"
+                      whileHover={{ rotate: 10, scale: 1.2 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {value.icon}
+                    </motion.div>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 group-hover:text-gray-700 dark:group-hover:text-gray-100 transition-colors duration-300">
+                      {value.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-500 dark:group-hover:text-gray-200 transition-colors duration-300">
+                      {value.description}
+                    </p>
+                  </div>
                 </motion.div>
               </AnimatedSection>
             ))}
@@ -316,11 +357,25 @@ const About = () => {
                 delay={index * 0.1}
               >
                 <motion.div
-                  className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 text-center"
+                  className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/60 transform hover:scale-105 hover:rotate-1 p-8 text-center"
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.3 }}
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(99, 102, 241, 0.12) 50%, rgba(139, 92, 246, 0.12) 100%)'
+                  }}
                 >
-                  <div className="w-32 h-32 rounded-full mx-auto mb-6 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                  {/* Animated background particles */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                    <div className="absolute top-8 right-6 w-1 h-1 bg-indigo-400 rounded-full animate-ping" />
+                    <div className="absolute bottom-6 left-8 w-1.5 h-1.5 bg-violet-400 rounded-full animate-bounce" />
+                  </div>
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 via-indigo-500/15 to-violet-500/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                  
+                  <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 group-hover:bg-white/95 dark:group-hover:bg-gray-800/95 transition-all duration-500">
+                  <div className="w-32 h-32 rounded-full mx-auto mb-6 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg group-hover:shadow-blue-500/50 transition-shadow duration-500">
                     <span className="text-3xl font-bold text-white">
                       {member.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
                     </span>
@@ -328,12 +383,13 @@ const About = () => {
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                     {member.name}
                   </h3>
-                  <p className="text-blue-600 dark:text-blue-400 font-medium mb-4">
+                  <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-medium mb-4">
                     {member.position}
                   </p>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                     {member.description}
                   </p>
+                  </div>
                 </motion.div>
               </AnimatedSection>
             ))}
@@ -342,7 +398,7 @@ const About = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="section-py bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <section className="section-py bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection animation="fadeInUp">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
@@ -361,7 +417,7 @@ const About = () => {
             >
               <Link
                 to="/contact"
-                className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-blue-600 hover:bg-gray-100 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-fuchsia-600 hover:bg-gray-100 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-fuchsia-500/50"
               >
                 <span>Get In Touch</span>
                 <ArrowRightIcon />
@@ -369,7 +425,7 @@ const About = () => {
               
               <Link
                 to="/#ventures"
-                className="inline-flex items-center space-x-2 px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-blue-600 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-1"
+                className="inline-flex items-center space-x-2 px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-fuchsia-600 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-1"
               >
                 <span>Explore Our Ventures</span>
                 <ArrowRightIcon />

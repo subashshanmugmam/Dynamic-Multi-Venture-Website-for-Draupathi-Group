@@ -6,7 +6,6 @@ import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Products from './pages/Products';
 import Ventures from './pages/ventures/Ventures';
 import ITSolutions from './pages/ventures/ITSolutions';
 import DFoods from './pages/ventures/DFoods';
@@ -14,7 +13,6 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import ThemeDemo from './components/theme/ThemeDemo';
 import ThemeTest from './pages/ThemeTest';
-import DevelopmentNotice from './components/common/DevelopmentNotice';
 import './App.css';
 
 const VentureDetail = () => (
@@ -33,7 +31,6 @@ const VentureDetail = () => (
 function App() {
   return (
     <ThemeProvider>
-      <DevelopmentNotice />
       <Router>
         <AnimatePresence mode="wait">
           <Routes>
@@ -41,7 +38,6 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />
-              <Route path="products" element={<Products />} />
               <Route path="ventures" element={<Ventures />} />
               <Route path="ventures/it-solutions" element={<ITSolutions />} />
               <Route path="ventures/d-foods" element={<DFoods />} />
